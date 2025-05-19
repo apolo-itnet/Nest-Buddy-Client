@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+
+.font-poetsen {
+  font-family: 'Poetsen One', serif;
+}
+
+.font-cabin {
+  font-family: 'Cabin Condensed', sans-serif;
+}
