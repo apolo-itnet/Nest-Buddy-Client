@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 
 const Navbar = () => {
-  // const navigation = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -31,9 +31,7 @@ const Navbar = () => {
             <NavLink
               className={({ isActive }) =>
                 `inline-block px-4 py-2 rounded-md transition-all duration-300 ease-in-out
-                ${
-                  isActive ? "bg-lime-400" : "hover:bg-lime-500"
-                 }`
+                ${isActive ? "bg-lime-400" : "hover:bg-lime-500"}`
               }
               to={"/"}
             >
@@ -42,42 +40,52 @@ const Navbar = () => {
             <NavLink
               className={({ isActive }) =>
                 `inline-block px-4 py-2 rounded-md transition-all duration-300 ease-in-out
-                ${
-                  isActive ? "bg-lime-400" : "hover:bg-lime-500"
-                 }`
+                ${isActive ? "bg-lime-400" : "hover:bg-lime-500"}`
               }
-              to={"/login"}
+              to={"/add-listing"}
+            >
+              Add to Find Roommate
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `inline-block px-4 py-2 rounded-md transition-all duration-300 ease-in-out
+                ${isActive ? "bg-lime-400" : "hover:bg-lime-500"}`
+              }
+              to={"/browse-listing"}
             >
               Browse Listing
             </NavLink>
             <NavLink
               className={({ isActive }) =>
                 `inline-block px-4 py-2 rounded-md transition-all duration-300 ease-in-out
-                ${
-                  isActive ? "bg-lime-400" : "hover:bg-lime-500"
-                 }`
+                ${isActive ? "bg-lime-400" : "hover:bg-lime-500"}`
               }
-              to={"/register"}
+              to={"/my-listings"}
             >
-              Register
+              My Listings
             </NavLink>
-            
           </div>
 
           {/* Button Group */}
           <div className="flex items-center gap-x-3">
-            <button
-              type="button"
-              className="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-hidden focus:bg-lime-500 transition disabled:opacity-50 disabled:pointer-events-none"
-            >
-              Register
-            </button>
+            <Link to="/login">
+              <button
+                onClick={() => navigate("/login")}
+                type="button"
+                className="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+              >
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button
+                onClick={() => navigate("/register")}
+                type="button"
+                className="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 focus:outline-hidden focus:bg-lime-500 transition disabled:opacity-50 disabled:pointer-events-none"
+              >
+                Register
+              </button>
+            </Link>
 
             <div className="lg:hidden">
               <button
@@ -94,7 +102,6 @@ const Navbar = () => {
           {/* End Button Group */}
         </nav>
       </header>
-      {/* ========== END HEADER ========== */}
     </div>
   );
 };

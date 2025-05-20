@@ -93,6 +93,7 @@ const Slider = () => {
                   {slide.description}
                 </p>
               </div>
+              
             </div>
           </SwiperSlide>
         ))}

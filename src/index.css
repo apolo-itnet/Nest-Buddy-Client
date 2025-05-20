@@ -10,14 +10,3 @@
 .font-cabin {
   font-family: 'Cabin Condensed', sans-serif;
 }
-
-
-/* তোমার src/index.css বা App.css-এ লিখো */
-.swiper-pagination-bullet {
-  @apply w-3 h-3 bg-gray-400 opacity-70;
-}
-
-.swiper-pagination-bullet-active {
-  @apply bg-blue-500 opacity-100;
-}
-
