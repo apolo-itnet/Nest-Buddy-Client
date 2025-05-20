@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="flex z-50 w-full py-4">
+      <header className="flex z-50 w-full py-1">
         <nav className="relative max-w-7xl mx-auto w-full flex justify-between items-center px-4  ">
           <div className="flex items-center">
             {/* Logo */}
@@ -26,6 +26,7 @@ const Navbar = () => {
             {/* End Logo */}
           </div>
 
+          {/* Navigation */}
           <div className="hidden lg:flex justify-between items-center gap-x-4 font-cabin font-medium tracking-wide">
             <NavLink
               className={({ isActive }) =>

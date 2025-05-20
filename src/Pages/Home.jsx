@@ -1,9 +1,16 @@
 import React from 'react';
+import Slider from '../Components/Slider';
+import Testimonial from '../Components/Testimonial';
 
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <div>
+        <Slider></Slider>
+      </div>
+      <div id='testimonial'>
+        <Testimonial/>
+      </div>
     </div>
   );
 };
