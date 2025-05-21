@@ -4,7 +4,7 @@ import Lottie from "lottie-react";
 
 const NoListings = () => {
   return (
-    <div className="flex justify-center items-center gap-6 flex-wrap px-4 py-8">
+    <div className="flex justify-center items-center gap-6 flex-wrap px-4 py-1">
       {/* Animation */}
       <div className="w-48 sm:w-64 md:w-72">
         <Lottie animationData={animationData} loop={true} />
