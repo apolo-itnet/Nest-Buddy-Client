@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <header className="flex z-50 w-full py-1">
+      <header className="flex z-50 w-full py-2 border-b border-gray-200">
         <nav className="relative max-w-7xl mx-auto w-full flex justify-between items-center px-4">
 
           <div className="flex items-center">
