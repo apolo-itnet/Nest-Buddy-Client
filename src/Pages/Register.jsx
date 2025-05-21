@@ -38,6 +38,76 @@ const Register = () => {
       formData.entries()
     );
 
+    //Create user in the Firebase
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+
+        const userProfile = {
+          email,
+          ...restFormData,
+          creationTime: result.user?.metadata?.creationTime,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your Account Registration Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        //Save users info in the MongoDB Database
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userProfile),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("after profile save", data);
+          });
+        // form.reset();
+        // navigate(location.state?.from || "/", { replace: true });
+      })
+      .catch((error) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Your Account Registration Failed, Please Try Again",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.error(error);
+      });
+
+    // try {
+    //   const result = await createUser(email, password);
+    //   const user = result.user;
+    //   await updateUser({ displayName: name, photoURL: photo });
+    //   setUser({ ...user, displayName: name, photoURL: photo });
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "success",
+    //     title: "Registration Successful",
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+
+    //   navigate(location.state?.from || "/", { replace: true });
+    // } catch (error) {
+    //   if (error.code === "auth/email-already-in-use") {
+    //     toast.error(
+    //       "This email is already registered. Please use a different email."
+    //     );
+    //   } else {
+    //     toast.error(error.message || "Failed to register. Please try again.");
+    //   }
+    // }
+
     setNameError("");
     setEmailError("");
     setPasswordError([]);
@@ -55,11 +125,11 @@ const Register = () => {
       return;
     }
 
-    if (name.length < 5) {
-      setNameError("Enter Full Name (at least 5 characters)");
-      toast.error("Name must be at least 5 characters");
-      return;
-    }
+    // if (name.length < 5) {
+    //   setNameError("Enter Full Name (at least 5 characters)");
+    //   toast.error("Name must be at least 5 characters");
+    //   return;
+    // }
 
     const passwordErrors = validatePassword(password);
     if (passwordErrors.length > 0) {
@@ -72,30 +142,6 @@ const Register = () => {
       setConfirmPasswordError("Passwords do not match");
       toast.error("Passwords do not match");
       return;
-    }
-
-    try {
-      const result = await createUser(email, password);
-      const user = result.user;
-      await updateUser({ displayName: name, photoURL: photo });
-      setUser({ ...user, displayName: name, photoURL: photo });
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Registration Successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-
-      navigate(location.state?.from || "/", { replace: true });
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        toast.error(
-          "This email is already registered. Please use a different email."
-        );
-      } else {
-        toast.error(error.message || "Failed to register. Please try again.");
-      }
     }
   };
 
