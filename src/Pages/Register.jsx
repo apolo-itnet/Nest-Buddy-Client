@@ -33,11 +33,10 @@ const Register = () => {
     e.preventDefault();
 
     const form = e.target;
-    const name = form.firstName.value + " " + form.lastName.value;
-    const photo = form.photo.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
+    const formData = new FormData(form);
+    const { email, password, ...restFormData } = Object.fromEntries(
+      formData.entries()
+    );
 
     setNameError("");
     setEmailError("");
