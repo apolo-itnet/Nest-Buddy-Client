@@ -23,6 +23,7 @@ const ListingForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [mongoUser, setMongoUser] = useState(null);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -53,15 +54,15 @@ const ListingForm = () => {
     const formData = new FormData(form);
     const AddListing = Object.fromEntries(formData.entries());
 
-    // 
+    AddListing.amenities = selectedAmenities;
+    
     const now = new Date();
     const listingMeta = {
-      localTime: now.toLocaleString(), 
-      isoTime: now.toISOString(), 
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, 
+      localTime: now.toLocaleString(),
+      isoTime: now.toISOString(),
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
-    
     const addListingWithTime = {
       ...AddListing,
       ...listingMeta,
@@ -84,19 +85,19 @@ const ListingForm = () => {
             title: "Your Room Added Successfully",
             showConfirmButton: false,
             timer: 1500,
-            customClass:{
+            customClass: {
               popup: "!z-[99999]",
               backdrop: "!z-[99998]",
-            }
+            },
           });
-          // form.reset();
+          form.reset();
           setIsModalOpen(false);
-          // const modal = document.getElementById("show_form");
-          // modal.classList.add("modal-close");
-          // setTimeout(() => {
-          //   modal.close();
-          //   modal.classList.remove("modal-close");
-          // }, 1000);
+          const modal = document.getElementById("show_form");
+          modal.classList.add("modal-close");
+          setTimeout(() => {
+            modal.close();
+            modal.classList.remove("modal-close");
+          }, 1000);
         }
       })
       .catch((error) => {
@@ -104,9 +105,19 @@ const ListingForm = () => {
       });
   };
 
+  const handleAmenityChange = (e) => {
+    const {value, checked} = e.target;
+
+    if (checked) {
+      setSelectedAmenities([...selectedAmenities, value]);
+    } else {
+      setSelectedAmenities(selectedAmenities.filter((amenity) => amenity !== value));
+    }
+  }
+
   return (
     <div>
-      <div className="listing-container max-w-4xl mx-auto border border-gray-200 rounded-2xl my-6">
+      <div className="listing-container max-w-5xl mx-auto border border-gray-200 rounded-2xl my-6">
         <div className="flex justify-between items-center border-b border-gray-200 py-2 px-3">
           <div className="flex justify-center items-center gap-2">
             <span className="text-lime-600">
@@ -145,11 +156,11 @@ const ListingForm = () => {
             className="modal modal-middle flex justify-center items-center z-[50]"
           >
             {/* Form  */}
-            <div className="flex justify-center p-2 lg:p-8">
+            <div className="max-w-12/12 mx-auto flex justify-center p-2 lg:p-8">
               <form
                 onSubmit={handleAddListing}
                 method="dialog"
-                className="max-w-6xl mx-auto bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
+                className="w-full bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
               >
                 <h2 className="text-3xl font-poetsen font-medium text-center mb-4">
                   Create Listing
@@ -166,7 +177,8 @@ const ListingForm = () => {
                   <IoClose size={26} />
                 </button>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 gap-x-10">
+
                   <div>
                     <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
                       <FaEnvelope /> User Email
@@ -273,9 +285,9 @@ const ListingForm = () => {
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       >
                         <option value="">Select room type</option>
-                        <option value="Single">Single Room</option>
-                        <option value="Shared">Shared Room </option>
-                        <option value="Seat">Single Seat</option>
+                        <option value="Single Room">Single Room</option>
+                        <option value="Shared Room">Shared Room </option>
+                        <option value="Single Seat">Single Seat</option>
                       </select>
                     </div>
 
@@ -325,7 +337,7 @@ const ListingForm = () => {
                       </div>
                     </div>
 
-                    <div className="">
+                    {/* <div className="">
                       <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
                         <FaFileUpload /> Upload Photo
                       </label>
@@ -334,6 +346,38 @@ const ListingForm = () => {
                         name="photoFile"
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       />
+                    </div> */}
+
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        "AC",
+                        "Lift",
+                        "Wi-Fi",
+                        "Geyser",
+                        "Furnished",
+                        "Balcony",
+                        "Fridge",
+                        "Kitchen Access",
+                        "Attached Bathroom",
+                        "Parking",
+                        "Generator",
+                        "Security Guard",
+                      ].map((amenity) => (
+                        <label
+                          key={amenity}
+                          className="flex items-center space-x-2"
+                        >
+                          <input
+                            type="checkbox"
+                            name="amenities"
+                            value={amenity}
+                            checked={selectedAmenities.includes(amenity)}
+                            onChange={handleAmenityChange}
+                            className="checkbox checkbox-xs checkbox-primary "
+                          />
+                          <span className="text-sm">{amenity}</span>
+                        </label>
+                      ))}
                     </div>
                   </div>
 
@@ -342,13 +386,14 @@ const ListingForm = () => {
                       Description
                     </label>
                     <textarea
-                      rows="4"
+                      rows="6"
                       name="description"
                       placeholder="Enter detailed description"
                       required
                       className="w-full border border-gray-300 rounded-2xl px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                     />
                   </div>
+
                 </div>
 
                 <div className="pt-4">

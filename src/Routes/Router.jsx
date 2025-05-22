@@ -43,7 +43,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/browse-listing",
+        loader: () => fetch("http://localhost:5000/users"),
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: <BrowseListings />,
+        hydrateFallbackElement: <LoadingSpinner />,
       },
       {
         path: "/my-listings",
@@ -63,11 +66,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
+        loader: ({params}) => fetch(`http://localhost:5000/listingsRooms/${params.id}`),
         element: (
           <PrivateRoutes>
             <Details />
           </PrivateRoutes>
         ),
+        hydrateFallbackElement: <LoadingSpinner />,
       },
     ],
   },
