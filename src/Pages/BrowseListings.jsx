@@ -1,28 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { IoEyeSharp } from "react-icons/io5";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { BsSearch } from "react-icons/bs";
 
 const BrowseListings = () => {
   const listingUsers = useLoaderData();
-  const [users, setUsers] = useState(listingUsers);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedUsers = listingUsers.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(listingUsers.length / itemsPerPage);
+
+  const handlePageChange = (e) => {
+    setCurrentPage(Number(e.target.value));
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <div>
       {/* Table Section */}
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        {/* Card */}
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
               <div className="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden">
                 {/* Header */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
-                  {/* Input */}
                   <div className="sm:col-span-1">
-                    <label
-                      htmlFor="hs-as-table-product-review-search"
-                      className="sr-only"
-                    >
+                    <label className="sr-only border border-gray-200 rounded-lg">
                       Search
                     </label>
                     <div className="relative">
@@ -34,25 +55,10 @@ const BrowseListings = () => {
                         placeholder="Search"
                       />
                       <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
-                        <svg
-                          className="shrink-0 size-4 text-gray-400"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <circle cx="11" cy="11" r="8" />
-                          <path d="m21 21-4.3-4.3" />
-                        </svg>
+                        <BsSearch />
                       </div>
                     </div>
                   </div>
-                  {/* End Input */}
 
                   <div className="sm:col-span-2 md:grow">
                     <div className="flex justify-end gap-x-2">
@@ -101,7 +107,7 @@ const BrowseListings = () => {
                         </div>
                       </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
+                      <th scope="col" className="px-6 py-3 text-start whitespace-nowrap">
                         <div className="flex items-center gap-x-2">
                           <span className="text-xs font-semibold uppercase text-gray-800">
                             Posted User
@@ -153,9 +159,12 @@ const BrowseListings = () => {
                     </tr>
                   </thead>
 
-                  {users.map((user, index) => (
-                    <tbody key={index} className="divide-y divide-gray-200">
-                      <tr className="px-2 bg-white hover:bg-gray-50 font-cabin">
+                  <tbody className="divide-y divide-gray-200">
+                    {paginatedUsers.map((user, index) => (
+                      <tr
+                        key={index}
+                        className="px-2 bg-white hover:bg-gray-50 font-cabin"
+                      >
                         <td className="">
                           <a className="block p-2">
                             <div className="flex items-center gap-x-4">
@@ -169,63 +178,63 @@ const BrowseListings = () => {
                         </td>
 
                         <td className="whitespace-nowrap">
-                          <a className="block p-6" href="#">
+                          <div className="block p-6" href="#">
                             <div className="flex items-center gap-x-3">
-                              <img
-                                className="inline-block size-9.5 rounded-full"
-                                src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                                alt="Product Image"
-                              />
+                              {/* <img
+                                className="posted-user-img inline-block size-9.5 rounded-full"
+                                src={user.photo}
+                                alt="User Image"
+                              /> */}
                               <div className="grow">
                                 <span className="block text-sm font-semibold text-gray-800">
                                   {user.first_name + " " + user.last_name}
                                 </span>
                               </div>
                             </div>
-                          </a>
+                          </div>
                         </td>
 
                         <td className="">
-                          <a className="block p-6" href="#">
+                          <div className="block p-6" href="#">
                             <span className="block text-md font-medium text-gray-800">
                               {user.title}
                             </span>
                             <span className="block text-sm text-justify py-2 text-gray-500">
                               {user.lifestyle}
                             </span>
-                          </a>
+                          </div>
                         </td>
 
                         <td className="">
-                          <a className="block p-6" href="#">
+                          <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
                               {user.location}
                             </span>
-                          </a>
+                          </div>
                         </td>
 
                         <td className="">
-                          <a className="block p-6" href="#">
+                          <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
                               {user.roomType}
                             </span>
-                          </a>
+                          </div>
                         </td>
 
-                        <td className="">
-                          <a className="block p-6" href="#">
+                        <td className="whitespace-wrap">
+                          <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
                               {user.localTime}
                             </span>
-                          </a>
+                          </div>
                         </td>
 
                         <td className="whitespace-nowrap">
-                          <a className="block p-6" href="#">
-                            <span className="py-2 px-3 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full">
+                          <div className="block p-6" href="#">
+                            <span className="py-2 px-3 inline-flex items-center gap-x-1 text-sm font-medium bg-teal-100 text-teal-800 rounded-xl">
                               {user.availability}
                             </span>
-                          </a>
+                          </div>
                         </td>
 
                         <td className="pr-3">
@@ -239,21 +248,27 @@ const BrowseListings = () => {
                           </div>
                         </td>
                       </tr>
-                    </tbody>
-                  ))}
+                    ))}
+                  </tbody>
                 </table>
                 {/* End Table */}
 
                 {/* Footer */}
-                <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
-                  <div className="max-w-sm space-y-3">
-                    <select className="py-2 px-3 pe-9 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option selected>5</option>
-                      <option>6</option>
+                <div className="px-4 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
+                  <div className="max-w-sm py-2 px-2 flex justify-center items-center border border-gray-300 rounded-lg">
+                    <span className="font-medium">Page No.</span>
+                    <select
+                      value={currentPage}
+                      onChange={handlePageChange}
+                      className="py-1 px-3 flex items-center border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500"
+                    >
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <option key={page} value={page}>
+                            {page}
+                          </option>
+                        )
+                      )}
                     </select>
                   </div>
 
@@ -261,44 +276,28 @@ const BrowseListings = () => {
                     <div className="inline-flex gap-x-2">
                       <button
                         type="button"
-                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                        onClick={handlePrev}
+                        disabled={currentPage === 1}
+                        className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
+                          currentPage === 1
+                            ? "opacity-50 pointer-events-none"
+                            : "cursor-pointer"
+                        }`}
                       >
-                        <svg
-                          className="shrink-0 size-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m15 18-6-6 6-6" />
-                        </svg>
-                        Prev
+                        <IoIosArrowBack size={18} /> Prev
                       </button>
 
                       <button
                         type="button"
-                        className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                        onClick={handleNext}
+                        disabled={currentPage === totalPages}
+                        className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
+                          currentPage === totalPages
+                            ? "opacity-50 pointer-events-none"
+                            : "cursor-pointer"
+                        }`}
                       >
-                        Next
-                        <svg
-                          className="shrink-0 size-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m9 18 6-6-6-6" />
-                        </svg>
+                        Next <IoIosArrowForward size={18} />
                       </button>
                     </div>
                   </div>
