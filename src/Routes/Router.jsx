@@ -11,6 +11,7 @@ import BrowseListings from "../Pages/BrowseListings";
 import MyListings from "../Pages/MyListings";
 import UpdateListing from "../Pages/UpdateListing";
 import Details from "../Pages/Details";
+import { useContext } from "react";
 
 const router = createBrowserRouter([
   {
@@ -38,10 +39,11 @@ const router = createBrowserRouter([
             <AddListing />
           </PrivateRoutes>
         ),
+        hydrateFallbackElement: <LoadingSpinner />,
       },
       {
-        path: '/browse-listing',
-        element: <BrowseListings/>
+        path: "/browse-listing",
+        element: <BrowseListings />,
       },
       {
         path: "/my-listings",
@@ -49,24 +51,24 @@ const router = createBrowserRouter([
           <PrivateRoutes>
             <MyListings></MyListings>
           </PrivateRoutes>
-        )
+        ),
       },
       {
         path: "/update-listing/:id",
         element: (
           <PrivateRoutes>
-            <UpdateListing/>
+            <UpdateListing />
           </PrivateRoutes>
-        )
+        ),
       },
       {
         path: "/details/:id",
         element: (
           <PrivateRoutes>
-           <Details/>
+            <Details />
           </PrivateRoutes>
-        )
-      }
+        ),
+      },
     ],
   },
 ]);
