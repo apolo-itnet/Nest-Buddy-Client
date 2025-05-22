@@ -10,3 +10,9 @@
 .font-cabin {
   font-family: 'Cabin Condensed', sans-serif;
 }
+
+
+.modal-close {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}

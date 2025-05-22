@@ -48,6 +48,7 @@ const ListingForm = () => {
 
   const handleAddListing = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const form = e.target;
     const formData = new FormData(form);
     const AddListing = Object.fromEntries(formData.entries());
@@ -84,10 +85,18 @@ const ListingForm = () => {
             showConfirmButton: false,
             timer: 1500,
             customClass:{
-              popup: "z-50"
+              popup: "!z-[99999]",
+              backdrop: "!z-[99998]",
             }
           });
           // form.reset();
+          setIsModalOpen(false);
+          // const modal = document.getElementById("show_form");
+          // modal.classList.add("modal-close");
+          // setTimeout(() => {
+          //   modal.close();
+          //   modal.classList.remove("modal-close");
+          // }, 1000);
         }
       })
       .catch((error) => {
@@ -120,10 +129,10 @@ const ListingForm = () => {
 
           {/* Open Modal Button */}
           <button
-            className="open-modal btn"
+            className="open-modal btn "
             onClick={() => {
               setIsModalOpen(true);
-              document.getElementById("add_post").showModal();
+              document.getElementById("show_form").showModal();
             }}
           >
             <span>
@@ -132,8 +141,8 @@ const ListingForm = () => {
             New Listing
           </button>
           <dialog
-            id="add_post"
-            className="modal modal-middle flex justify-center items-center"
+            id="show_form"
+            className="modal modal-middle flex justify-center items-center z-[50]"
           >
             {/* Form  */}
             <div className="flex justify-center p-2 lg:p-8">
@@ -149,7 +158,7 @@ const ListingForm = () => {
                 <button
                   onClick={() => {
                     setIsModalOpen(false);
-                    document.getElementById("add_post").close();
+                    document.getElementById("show_form").close();
                   }}
                   type="button"
                   className="close-btn btn absolute top-0 right-0 rounded-2xl bg-white border-none shadow-none text-lime-600 hover:bg-lime-50 hover:text-lime-600"
@@ -167,7 +176,7 @@ const ListingForm = () => {
                       name="email"
                       readOnly
                       defaultValue={user?.email || mongoUser?.email}
-                      className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                      className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                     />
                   </div>
 
@@ -181,7 +190,7 @@ const ListingForm = () => {
                         name="first_name"
                         readOnly
                         value={mongoUser?.firstName || ""}
-                        className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                        className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
                     </div>
 
@@ -194,7 +203,7 @@ const ListingForm = () => {
                         name="last_name"
                         defaultValue={mongoUser?.lastName || ""}
                         readOnly
-                        className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                        className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
                     </div>
                   </div>
@@ -221,6 +230,7 @@ const ListingForm = () => {
                         type="text"
                         name="location"
                         placeholder="Enter location"
+                        required
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       />
                     </div>
@@ -232,6 +242,7 @@ const ListingForm = () => {
                       <input
                         type="number"
                         name="rent"
+                        required
                         placeholder="Enter rent amount"
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       />
@@ -245,6 +256,7 @@ const ListingForm = () => {
                     <input
                       type="text"
                       name="lifestyle"
+                      required
                       placeholder="e.g. Non-smoker, Vegetarian"
                       className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                     />
@@ -257,12 +269,13 @@ const ListingForm = () => {
                       </label>
                       <select
                         name="roomType"
+                        required
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       >
-                        <option disabled>Select room type</option>
-                        <option>Single</option>
-                        <option>Shared</option>
-                        <option>Studio</option>
+                        <option value="">Select room type</option>
+                        <option value="Single">Single Room</option>
+                        <option value="Shared">Shared Room </option>
+                        <option value="Seat">Single Seat</option>
                       </select>
                     </div>
 
@@ -272,12 +285,13 @@ const ListingForm = () => {
                       </label>
                       <select
                         name="availability"
+                        required
                         className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                       >
-                        <option>Select availability</option>
-                        <option>Immediate</option>
-                        <option>Available</option>
-                        <option>Not Available</option>
+                        <option value={""}>Select availability</option>
+                        <option value={"Immediate"}>Immediate</option>
+                        <option value={"Available"}>Available</option>
+                        <option value={"Not Available"}>Not Available</option>
                       </select>
                     </div>
                   </div>
@@ -291,6 +305,7 @@ const ListingForm = () => {
                         <input
                           type="text"
                           name="contact"
+                          required
                           placeholder="Enter phone or email"
                           className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                         />
@@ -304,6 +319,7 @@ const ListingForm = () => {
                           type="text"
                           name="photo"
                           placeholder="Enter image URL"
+                          required
                           className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                         />
                       </div>
@@ -329,6 +345,7 @@ const ListingForm = () => {
                       rows="4"
                       name="description"
                       placeholder="Enter detailed description"
+                      required
                       className="w-full border border-gray-300 rounded-2xl px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                     />
                   </div>
@@ -337,7 +354,7 @@ const ListingForm = () => {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="btn w-full bg-lime-600 hover:bg-lime-700 text-white py-6 rounded-full text-base font-semibold transition duration-500 cursor-pointer"
+                    className="btn w-full bg-lime-600 hover:bg-lime-700 text-white py-6 rounded-full text-base font-semibold transition-colors duration-500 cursor-pointer"
                   >
                     Add Roommate
                   </button>
