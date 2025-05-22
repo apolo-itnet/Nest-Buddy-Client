@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaEnvelope,
   FaUser,
@@ -16,40 +16,83 @@ import { MdOutlineAddHome } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { RiPlayListAddFill } from "react-icons/ri";
 import { auth } from "../Firebase/firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const ListingForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [user] = useAuthState(auth);
-  const [userData, setUserData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-  });
+  const [user, setUser] = useState(null);
+  const [mongoUser, setMongoUser] = useState(null);
 
   useEffect(() => {
-    if (user) {
-      const displayName = user.displayName || "";
-      const [firstName = "", lastName = ""] = displayName.split(" ");
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser?.email) {
+        setUser(currentUser);
+        try {
+          const encodedEmail = encodeURIComponent(currentUser.email);
+          const res = await fetch(
+            `http://localhost:5000/users/email/${encodedEmail}`
+          );
+          const data = await res.json();
+          setMongoUser(data);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      } else {
+        console.warn("User not logged in or email not found");
+      }
+    });
 
-      setUserData({
-        email: user.email || "",
-        firstName,
-        lastName,
-        photo: user.photoURL || "",
-      });
-    }
-  }, [user]);
+    return () => unsubscribe();
+  }, []);
 
   const handleAddListing = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const { email, password, ...restFormData } = Object.fromEntries(
-      formData.entries()
-    );
+    const AddListing = Object.fromEntries(formData.entries());
 
-    console.log("Data pacche: ", restFormData);
+    // 
+    const now = new Date();
+    const listingMeta = {
+      localTime: now.toLocaleString(), 
+      isoTime: now.toISOString(), 
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, 
+    };
+
+    
+    const addListingWithTime = {
+      ...AddListing,
+      ...listingMeta,
+    };
+
+    // save add listing forms data in mongodb
+    fetch("http://localhost:5000/listingsRooms", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(addListingWithTime),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your Room Added Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass:{
+              popup: "z-50"
+            }
+          });
+          // form.reset();
+        }
+      })
+      .catch((error) => {
+        console.error("Error saving data to MongoDB:", error);
+      });
   };
 
   return (
@@ -75,6 +118,7 @@ const ListingForm = () => {
             </p>
           </div>
 
+          {/* Open Modal Button */}
           <button
             className="open-modal btn"
             onClick={() => {
@@ -91,11 +135,12 @@ const ListingForm = () => {
             id="add_post"
             className="modal modal-middle flex justify-center items-center"
           >
+            {/* Form  */}
             <div className="flex justify-center p-2 lg:p-8">
               <form
                 onSubmit={handleAddListing}
                 method="dialog"
-                className="max-w-6xl mx-auto bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 "
+                className="max-w-6xl mx-auto bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
               >
                 <h2 className="text-3xl font-poetsen font-medium text-center mb-4">
                   Create Listing
@@ -106,6 +151,7 @@ const ListingForm = () => {
                     setIsModalOpen(false);
                     document.getElementById("add_post").close();
                   }}
+                  type="button"
                   className="close-btn btn absolute top-0 right-0 rounded-2xl bg-white border-none shadow-none text-lime-600 hover:bg-lime-50 hover:text-lime-600"
                 >
                   <IoClose size={26} />
@@ -120,7 +166,7 @@ const ListingForm = () => {
                       type="email"
                       name="email"
                       readOnly
-                      defaultValue={userData?.email || ""}
+                      defaultValue={user?.email || mongoUser?.email}
                       className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                     />
                   </div>
@@ -134,7 +180,7 @@ const ListingForm = () => {
                         type="text"
                         name="first_name"
                         readOnly
-                        defaultValue={userData?.firstName || ""}
+                        value={mongoUser?.firstName || ""}
                         className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
                     </div>
@@ -146,7 +192,7 @@ const ListingForm = () => {
                       <input
                         type="text"
                         name="last_name"
-                        defaultValue={userData?.lastName || ""}
+                        defaultValue={mongoUser?.lastName || ""}
                         readOnly
                         className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
@@ -161,6 +207,7 @@ const ListingForm = () => {
                       type="text"
                       name="title"
                       placeholder="Enter title"
+                      required
                       className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                     />
                   </div>
@@ -229,8 +276,8 @@ const ListingForm = () => {
                       >
                         <option>Select availability</option>
                         <option>Immediate</option>
-                        <option>Next Month</option>
-                        <option>Flexible</option>
+                        <option>Available</option>
+                        <option>Not Available</option>
                       </select>
                     </div>
                   </div>
