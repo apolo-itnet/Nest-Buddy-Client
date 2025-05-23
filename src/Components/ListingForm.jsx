@@ -37,7 +37,7 @@ const ListingForm = () => {
           const data = await res.json();
           setMongoUser(data);
         } catch (error) {
-          console.error("Failed to fetch user data:", error);
+          console.error("user data fetch hocche na:", error);
         }
       } else {
         console.warn("User not logged in or email not found");

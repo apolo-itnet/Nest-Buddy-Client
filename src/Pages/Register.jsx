@@ -84,29 +84,6 @@ const Register = () => {
         console.error(error);
       });
 
-    // try {
-    //   const result = await createUser(email, password);
-    //   const user = result.user;
-    //   await updateUser({ displayName: name, photoURL: photo });
-    //   setUser({ ...user, displayName: name, photoURL: photo });
-    //   Swal.fire({
-    //     position: "top-end",
-    //     icon: "success",
-    //     title: "Registration Successful",
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-
-    //   navigate(location.state?.from || "/", { replace: true });
-    // } catch (error) {
-    //   if (error.code === "auth/email-already-in-use") {
-    //     toast.error(
-    //       "This email is already registered. Please use a different email."
-    //     );
-    //   } else {
-    //     toast.error(error.message || "Failed to register. Please try again.");
-    //   }
-    // }
 
     setNameError("");
     setEmailError("");

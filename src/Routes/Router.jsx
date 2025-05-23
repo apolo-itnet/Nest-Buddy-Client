@@ -10,8 +10,7 @@ import AddListing from "../Pages/AddListing";
 import BrowseListings from "../Pages/BrowseListings";
 import MyListings from "../Pages/MyListings";
 import UpdateListing from "../Pages/UpdateListing";
-import Details from "../Pages/Details";
-import { useContext } from "react";
+import RoomDetails from "../Pages/RoomDetails";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +42,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/browse-listing",
-        loader: () => fetch("http://localhost:5000/users"),
         loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: <BrowseListings />,
         hydrateFallbackElement: <LoadingSpinner />,
@@ -66,10 +64,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/details/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/listingsRooms/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/listingsRooms/${params.id}`),
         element: (
           <PrivateRoutes>
-            <Details />
+            <RoomDetails />
           </PrivateRoutes>
         ),
         hydrateFallbackElement: <LoadingSpinner />,
