@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     errorElement: <NotFound></NotFound>,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [
       {
         path: "/",
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-listings",
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: (
           <PrivateRoutes>
             <MyListings></MyListings>
@@ -56,6 +58,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-listing/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/listingsRooms/${params.id}`),
         element: (
           <PrivateRoutes>
             <UpdateListing />
