@@ -9,21 +9,41 @@ import {
   FaPhone,
   FaCalendarAlt,
   FaImage,
-  FaFileUpload,
 } from "react-icons/fa";
-import { SlEnergy } from "react-icons/sl";
-import { MdOutlineAddHome } from "react-icons/md";
-import { IoClose } from "react-icons/io5";
-import { RiPlayListAddFill } from "react-icons/ri";
 import { auth } from "../Firebase/firebase.init";
 import { onAuthStateChanged } from "firebase/auth";
 import Swal from "sweetalert2";
+import { useLoaderData } from "react-router";
 
 const UpdateListing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    _id,
+    email,
+    first_name,
+    last_name,
+    title,
+    location,
+    rent,
+    lifestyle,
+    roomType,
+    availability,
+    contact,
+    photo,
+    amenities,
+    description,
+    localTime,
+    isoTime,
+    timeZone,
+    views,
+    likes,
+    createdAt,
+  } = useLoaderData();
+
+  const loadedData = useLoaderData();
+  const [selectedAmenities, setSelectedAmenities] = useState(loadedData.amenities || []);
+
   const [user, setUser] = useState(null);
   const [mongoUser, setMongoUser] = useState(null);
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -47,14 +67,16 @@ const UpdateListing = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleAddListing = async (e) => {
+  const handleUpdateListing = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
     const form = e.target;
     const formData = new FormData(form);
-    const AddListing = Object.fromEntries(formData.entries());
+    const UpdateListing = Object.fromEntries(
+      [...formData.entries()].filter(([key]) => key !== "amenities")
+    )
+    console.log(UpdateListing);
 
-    AddListing.amenities = selectedAmenities;
+    UpdateListing.amenities = selectedAmenities;
 
     const now = new Date();
     const listingMeta = {
@@ -63,57 +85,37 @@ const UpdateListing = () => {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
-    const addListingWithTime = {
-      ...AddListing,
-      ...listingMeta,
-    };
+   
 
-    // save add listing forms data in mongodb
-    fetch("http://localhost:5000/listingsRooms", {
-      method: "POST",
+    fetch(`http://localhost:5000/listingsRooms/${_id}`, {
+      method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
-      body: JSON.stringify(addListingWithTime),
+      body: JSON.stringify(UpdateListing),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
-        if (data.insertedId) {
+        console.log(data);
+        if (data.modifiedCount > 0) {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "Your Room Added Successfully",
+            title: "Listing Updated Successfully",
             showConfirmButton: false,
             timer: 1500,
-            customClass: {
-              popup: "!z-[99999]",
-              backdrop: "!z-[99998]",
-            },
           });
-          form.reset();
-          setIsModalOpen(false);
-          const modal = document.getElementById("show_form");
-          modal.classList.add("modal-close");
-          setTimeout(() => {
-            modal.close();
-            modal.classList.remove("modal-close");
-          }, 1000);
         }
-      })
-      .catch((error) => {
-        console.error("Error saving data to MongoDB:", error);
       });
   };
 
   const handleAmenityChange = (e) => {
-    const { value, checked } = e.target;
+    const value = e.target.value;
 
-    if (checked) {
-      setSelectedAmenities([...selectedAmenities, value]);
+    if (e.target.checked) {
+      setSelectedAmenities((prev) => [...prev, value]);
     } else {
-      setSelectedAmenities(
-        selectedAmenities.filter((amenity) => amenity !== value)
-      );
+      setSelectedAmenities((prev) => prev.filter((a) => a !== value));
     }
   };
 
@@ -121,7 +123,7 @@ const UpdateListing = () => {
     <div>
       <div className="max-w-7xl mx-auto flex justify-center p-2">
         <form
-          onSubmit={handleAddListing}
+          onSubmit={handleUpdateListing}
           method="dialog"
           className="w-full bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
         >
@@ -138,7 +140,7 @@ const UpdateListing = () => {
                 type="email"
                 name="email"
                 readOnly
-                defaultValue={user?.email || mongoUser?.email}
+                defaultValue={email}
                 className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
               />
             </div>
@@ -152,7 +154,7 @@ const UpdateListing = () => {
                   type="text"
                   name="first_name"
                   readOnly
-                  value={mongoUser?.firstName || ""}
+                  value={first_name}
                   className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                 />
               </div>
@@ -164,7 +166,7 @@ const UpdateListing = () => {
                 <input
                   type="text"
                   name="last_name"
-                  defaultValue={mongoUser?.lastName || ""}
+                  defaultValue={last_name}
                   readOnly
                   className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                 />
@@ -179,6 +181,7 @@ const UpdateListing = () => {
                 type="text"
                 name="title"
                 placeholder="Enter title"
+                defaultValue={title}
                 required
                 className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
               />
@@ -193,6 +196,7 @@ const UpdateListing = () => {
                   type="text"
                   name="location"
                   placeholder="Enter location"
+                  defaultValue={location}
                   required
                   className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                 />
@@ -207,6 +211,7 @@ const UpdateListing = () => {
                   name="rent"
                   required
                   placeholder="Enter rent amount"
+                  defaultValue={rent}
                   className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                 />
               </div>
@@ -219,6 +224,7 @@ const UpdateListing = () => {
               <input
                 type="text"
                 name="lifestyle"
+                defaultValue={lifestyle}
                 required
                 placeholder="e.g. Non-smoker, Vegetarian"
                 className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
@@ -233,12 +239,19 @@ const UpdateListing = () => {
                 <select
                   name="roomType"
                   required
+                  defaultValue={roomType}
                   className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                 >
                   <option value="">Select room type</option>
-                  <option value="Single Room">Single Room</option>
-                  <option value="Shared Room">Shared Room </option>
-                  <option value="Single Seat">Single Seat</option>
+                  <option defaultValue={roomType} value="Single Room">
+                    Single Room
+                  </option>
+                  <option defaultValue={roomType} value="Shared Room">
+                    Shared Room{" "}
+                  </option>
+                  <option defaultValue={roomType} value="Single Seat">
+                    Single Seat
+                  </option>
                 </select>
               </div>
 
@@ -249,12 +262,19 @@ const UpdateListing = () => {
                 <select
                   name="availability"
                   required
+                  defaultValue={availability}
                   className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                 >
                   <option value={""}>Select availability</option>
-                  <option value={"Immediate"}>Immediate</option>
-                  <option value={"Available"}>Available</option>
-                  <option value={"Not Available"}>Not Available</option>
+                  <option defaultValue={availability} value={"Immediate"}>
+                    Immediate
+                  </option>
+                  <option defaultValue={availability} value={"Available"}>
+                    Available
+                  </option>
+                  <option defaultValue={availability} value={"Not Available"}>
+                    Not Available
+                  </option>
                 </select>
               </div>
             </div>
@@ -270,6 +290,7 @@ const UpdateListing = () => {
                     name="contact"
                     required
                     placeholder="Enter phone or email"
+                    defaultValue={contact}
                     className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                   />
                 </div>
@@ -282,6 +303,7 @@ const UpdateListing = () => {
                     type="text"
                     name="photo"
                     placeholder="Enter image URL"
+                    defaultValue={photo}
                     required
                     className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                   />
@@ -319,6 +341,7 @@ const UpdateListing = () => {
                       type="checkbox"
                       name="amenities"
                       value={amenity}
+                      id={amenity}
                       checked={selectedAmenities.includes(amenity)}
                       onChange={handleAmenityChange}
                       className="checkbox checkbox-xs checkbox-primary "
@@ -337,6 +360,7 @@ const UpdateListing = () => {
                 rows="6"
                 name="description"
                 placeholder="Enter detailed description"
+                defaultValue={description}
                 required
                 className="w-full border border-gray-300 rounded-2xl px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
               />
