@@ -34,9 +34,45 @@ const Register = () => {
 
     const form = e.target;
     const formData = new FormData(form);
-    const { email, password, ...restFormData } = Object.fromEntries(
+    const { email, password, confirmPassword, ...restFormData } = Object.fromEntries(
       formData.entries()
     );
+
+    setNameError("");
+    setEmailError("");
+    setPasswordError([]);
+    setConfirmPasswordError("");
+
+    if (!email) {
+      setEmailError("Email is required");
+      toast.error("Email is required");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email");
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    // if (name.length < 5) {
+    //   setNameError("Enter Full Name (at least 5 characters)");
+    //   toast.error("Name must be at least 5 characters");
+    //   return;
+    // }
+
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setPasswordError(passwordErrors);
+      toast.error("Please fix password requirements");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match");
+      toast.error("Passwords do not match");
+      return;
+    }
 
     //Create user in the Firebase
     createUser(email, password)
@@ -44,7 +80,10 @@ const Register = () => {
         console.log(result.user);
 
         const userProfile = {
-          email,
+          email, 
+          name: restFormData.name,
+          photoURL: result.user?.photoURL,
+          uid: result.user?.uid,
           ...restFormData,
           creationTime: result.user?.metadata?.creationTime,
           lastSignInTime: result.user?.metadata?.lastSignInTime,
@@ -83,43 +122,6 @@ const Register = () => {
         });
         console.error(error);
       });
-
-
-    setNameError("");
-    setEmailError("");
-    setPasswordError([]);
-    setConfirmPasswordError("");
-
-    if (!email) {
-      setEmailError("Email is required");
-      toast.error("Email is required");
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email");
-      toast.error("Please enter a valid email");
-      return;
-    }
-
-    // if (name.length < 5) {
-    //   setNameError("Enter Full Name (at least 5 characters)");
-    //   toast.error("Name must be at least 5 characters");
-    //   return;
-    // }
-
-    const passwordErrors = validatePassword(password);
-    if (passwordErrors.length > 0) {
-      setPasswordError(passwordErrors);
-      toast.error("Please fix password requirements");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setConfirmPasswordError("Passwords do not match");
-      toast.error("Passwords do not match");
-      return;
-    }
   };
 
   const handleGoogleSignIn = async () => {
@@ -300,13 +302,13 @@ const Register = () => {
                           className="py-2.5 sm:py-3 px-4 block w-full border-0 rounded-lg sm:text-sm focus:ring-0 focus:outline-none"
                           required
                         />
-                        <button
+                        <span
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="pr-3 flex items-center focus:outline-none"
+                          className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-lime-500"
                         >
                           {showPassword ? <RiEyeLine /> : <RxEyeClosed />}
-                        </button>
+                        </span>
                       </div>
                       {passwordError.length > 0 && (
                         <ul className="text-sm text-red-500 py-1">
@@ -319,35 +321,30 @@ const Register = () => {
                     {/* End Form Group */}
 
                     {/* Form Group - confirm password */}
+                    {/* Confirm Password */}
                     <div>
-                      <label
-                        htmlFor="confirmPassword"
-                        className="block text-sm mb-2"
-                      >
+                      <label className="block text-sm mb-2">
                         Confirm Password
                       </label>
-                      <div className="relative flex items-center border border-gray-200 rounded-lg sm:text-sm focus-within:border-lime-500 focus-within:ring-lime-500">
+                      <div className="relative">
                         <input
                           type={showConfirmPassword ? "text" : "password"}
-                          id="confirm-password"
                           name="confirmPassword"
-                          placeholder="Enter your confirm password"
-                          className="py-2.5 sm:py-3 px-4 block w-full border-0 rounded-lg sm:text-sm focus:ring-0 focus:outline-none"
+                          className="py-2.5 sm:py-3 px-4 w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />
-                        <button
-                          type="button"
+                        <span
+                          className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-lime-500"
                           onClick={() =>
                             setShowConfirmPassword(!showConfirmPassword)
                           }
-                          className="pr-3 flex items-center focus:outline-none"
                         >
                           {showConfirmPassword ? (
                             <RiEyeLine />
                           ) : (
                             <RxEyeClosed />
                           )}
-                        </button>
+                        </span>
                       </div>
                       {confirmPasswordError && (
                         <p className="text-sm text-red-500 py-1">
@@ -355,6 +352,7 @@ const Register = () => {
                         </p>
                       )}
                     </div>
+
                     {/* End Form Group */}
                   </div>
 

@@ -186,13 +186,13 @@ const Login = () => {
                             className="py-2.5 sm:py-3 px-4 block w-full border-0 rounded-lg sm:text-sm focus:ring-0 focus:outline-none"
                             required
                           />
-                          <button
+                          <span
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="pr-3 flex items-center focus:outline-none"
+                            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-lime-500"
                           >
                             {showPassword ? <RiEyeLine /> : <RxEyeClosed />}
-                          </button>
+                          </span>
                         </div>
                         {passwordError && (
                           <p className="text-sm text-rose-500 py-1">
