@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
+import { AuthContext } from "../Context/AuthContext";
 
 const BrowseListings = () => {
   const listingUsers = useLoaderData();
+  const { user } = useContext(AuthContext);
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -14,6 +17,39 @@ const BrowseListings = () => {
   const paginatedUsers = listingUsers.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(listingUsers.length / itemsPerPage);
+
+  const [listingData, setListingData] = useState([]);
+  const [mongoUsers, setMongoUsers] = useState([]);
+  
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // লিস্টিং ফেচ
+        const listingResponse = await fetch("http://localhost:5000/listingsRooms");
+        if (!listingResponse.ok) throw new Error("Failed to fetch listings");
+        const listings = await listingResponse.json();
+        const userListings = listings.filter((listing) => listing.email === user?.email);
+        setListingData(userListings);
+
+        // সব ইউজার ফেচ
+        const usersResponse = await fetch("http://localhost:5000/users");
+        if (!usersResponse.ok) throw new Error("Failed to fetch users");
+        const users = await usersResponse.json();
+        setMongoUsers(users);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to load data!",
+        });
+      }
+    };
+
+    if (user?.email) {
+      fetchData();
+    }
+  }, [user]);
 
   const handlePageChange = (e) => {
     setCurrentPage(Number(e.target.value));
@@ -29,6 +65,11 @@ const BrowseListings = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
+  };
+
+  const getUserPhoto = (email) => {
+    const user = mongoUsers.find((u) => u.email === email);
+    return user?.photo || "https://i.postimg.cc/WpBxFRrR/user-5.png";
   };
 
   return (
@@ -106,13 +147,13 @@ const BrowseListings = () => {
                         </div>
                       </th>
 
-                      {/* <th scope="col" className="px-6 py-3 text-start">
+                      <th scope="col" className="px-6 py-3 text-start">
                         <div className="flex items-center gap-x-2">
                           <span className="text-sm font-semibold uppercase text-gray-800">
                             Posted User
                           </span>
                         </div>
-                      </th> */}
+                      </th>
 
                       <th scope="col" className="px-6 py-3 text-start">
                         <div className="flex items-center gap-x-2">
@@ -176,12 +217,12 @@ const BrowseListings = () => {
                           </a>
                         </td>
 
-                        {/* <td className="whitespace-nowrap">
+                         <td className="whitespace-nowrap">
                           <div className="block p-6" href="#">
-                            <div className="flex items-center gap-x-3">
+                            <div className="flex flex-col  items-center gap-x-3">
                               { <img
-                                className="posted-user-img inline-block size-9.5 rounded-full"
-                                src={user.photo}
+                                className="posted-user-img inline-block size-12 rounded-full border border-gray-200 p-1"
+                                src={getUserPhoto(user.email)}
                                 alt="User Image"
                               /> }
                               <div className="grow">
@@ -191,7 +232,7 @@ const BrowseListings = () => {
                               </div>
                             </div>
                           </div>
-                        </td> */}
+                        </td>
 
                         <td className="">
                           <div className="block p-6" href="#">
@@ -248,7 +289,7 @@ const BrowseListings = () => {
                           <div>
                             <Link
                               to={`/details/${user._id}`}
-                              className="text-white bg-lime-500 rounded-sm px-4 btn shadow-none border-none hover:bg-lime-600 transition-colors duration-300 ease-in-out"
+                              className="text-white bg-lime-500 rounded-sm px-4 py-6 btn shadow-none border-none hover:bg-lime-600 transition-colors duration-300 ease-in-out"
                             >
                               <IoEyeSharp size={16} />
                             </Link>

@@ -3,18 +3,34 @@ import { Link, useLoaderData } from "react-router";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { IoEyeSharp } from "react-icons/io5";
 import { AuthContext } from "../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const MyListings = () => {
   const listingUsers = useLoaderData();
   const { user } = useContext(AuthContext);
+  const [listingData, setListingData] = useState([]);
+
+  useEffect(() => {
+    setListingData(listingUsers);
+  }, [listingUsers]);
+
+  const email = user?.email;
+  const [mongoUser, setMongoUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/email/${email}`)
+      .then((res) => res.json())
+      .then((data) => setMongoUser(data));
+  }, [email]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const userListings = listingUsers.filter(
+  const userListings = listingData.filter(
     (listing) => listing.email === user?.email
   );
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedUsers = userListings.slice(startIndex, endIndex);
@@ -34,6 +50,38 @@ const MyListings = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
+  };
+
+  const handleDelete = (_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/listingsRooms/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your item has been deleted.",
+                icon: "success",
+              });
+              const updatedListings = listingData.filter(
+                (item) => item._id !== _id
+              );
+              setListingData(updatedListings);
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -111,13 +159,13 @@ const MyListings = () => {
                         </div>
                       </th>
 
-                      {/* <th scope="col" className="px-6 py-3 text-start">
+                      <th scope="col" className="px-6 py-3 text-start">
                         <div className="flex items-center gap-x-2">
                           <span className="text-sm font-semibold uppercase text-gray-800">
                             Posted User
                           </span>
                         </div>
-                      </th> */}
+                      </th>
 
                       <th scope="col" className="px-6 py-3 text-start">
                         <div className="flex items-center gap-x-2">
@@ -170,7 +218,7 @@ const MyListings = () => {
                   </thead>
 
                   <tbody className="divide-y divide-gray-200">
-                    {paginatedUsers.map((user, index) => (
+                    {paginatedUsers.map((listing, index) => (
                       <tr
                         key={index}
                         className="px-2 bg-white hover:bg-gray-50 font-cabin"
@@ -180,20 +228,39 @@ const MyListings = () => {
                             <div className="flex items-center gap-x-4">
                               <img
                                 className="shrink-0 w-24 h-24 object-center object-cover rounded-lg"
-                                src={user.photo}
+                                src={listing.photo}
                                 alt="Product Image"
                               />
                             </div>
                           </a>
                         </td>
 
+                        <td className="whitespace-nowrap">
+                          <div className="block p-6" href="#">
+                            <div className="flex flex-col items-center gap-x-3">
+                              {
+                                <img
+                                  className="posted-user-img inline-block size-12 rounded-full border border-gray-200 p-1"
+                                  src={mongoUser?.photo}
+                                  alt="User Image"
+                                />
+                              }
+                              <div className="grow">
+                                <span className="block text-sm font-semibold text-gray-800">
+                                  {listing.first_name + " " + listing.last_name}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
                         <td className="">
                           <div className="block p-6" href="#">
                             <span className="block text-md font-medium text-gray-800">
-                              {user.title}
+                              {listing.title}
                             </span>
                             <span className="block text-sm text-justify py-2 text-gray-500">
-                              {user.lifestyle}
+                              {listing.lifestyle}
                             </span>
                           </div>
                         </td>
@@ -201,7 +268,7 @@ const MyListings = () => {
                         <td className="">
                           <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
-                              {user.location}
+                              {listing.location}
                             </span>
                           </div>
                         </td>
@@ -209,7 +276,7 @@ const MyListings = () => {
                         <td className="w-32">
                           <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
-                              {user.roomType}
+                              {listing.roomType}
                             </span>
                           </div>
                         </td>
@@ -217,7 +284,7 @@ const MyListings = () => {
                         <td className="w-36">
                           <div className="block p-6" href="#">
                             <span className="text-sm text-gray-600">
-                              {user.localTime}
+                              {listing.localTime}
                             </span>
                           </div>
                         </td>
@@ -226,14 +293,14 @@ const MyListings = () => {
                           <div className="block p-6" href="#">
                             <span
                               className={`w-full text-center py-2 px-3 flex justify-center items-center gap-x-1 text-sm font-medium  rounded-xl ${
-                                user.availability === "Immediate"
+                                listing.availability === "Immediate"
                                   ? "bg-yellow-200 text-yellow-900"
-                                  : user.availability === "Available"
+                                  : listing.availability === "Available"
                                   ? "bg-green-100 text-green-700"
                                   : "bg-gray-200 text-gray-700"
                               }`}
                             >
-                              {user.availability}
+                              {listing.availability}
                             </span>
                           </div>
                         </td>
@@ -241,14 +308,20 @@ const MyListings = () => {
                         <td className="p-4 text-end">
                           <div className="flex justify-end gap-x-2">
                             <Link
-                              to={`/update-listing/${user._id}`}
-                              className="text-white bg-blue-500 rounded-sm px-4 py-2 btn shadow-none border-none hover:bg-blue-600 transition-colors duration-300 ease-in-out"
+                              to={`/details/${listing._id}`}
+                              className="text-white bg-lime-500 rounded-sm px-3 btn shadow-none border-none hover:bg-lime-600 transition-colors duration-300 ease-in-out"
+                            >
+                              <IoEyeSharp size={16} />
+                            </Link>
+                            <Link
+                              to={`/update-listing/${listing._id}`}
+                              className="text-white bg-blue-500 rounded-sm px-3 btn shadow-none border-none hover:bg-blue-600 transition-colors duration-300 ease-in-out"
                             >
                               <FaEdit size={16} />
                             </Link>
                             <button
-                              // onClick={() => handleDelete(user._id)}
-                              className="text-white bg-red-500 rounded-sm px-4 py-2 btn shadow-none border-none hover:bg-red-600 transition-colors duration-300 ease-in-out"
+                              onClick={() => handleDelete(listing._id)}
+                              className="text-white bg-red-500 rounded-sm px-3 btn shadow-none border-none hover:bg-red-600 transition-colors duration-300 ease-in-out"
                             >
                               <FaTrash size={16} />
                             </button>
