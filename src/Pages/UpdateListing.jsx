@@ -54,7 +54,7 @@ const UpdateListing = () => {
         try {
           const encodedEmail = encodeURIComponent(currentUser.email);
           const res = await fetch(
-            `http://localhost:5000/users/email/${encodedEmail}`
+            `https://roommates-finder-server-six.vercel.app/users/email/${encodedEmail}`
           );
           const data = await res.json();
           setMongoUser(data);
@@ -87,7 +87,7 @@ const UpdateListing = () => {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
-    fetch(`http://localhost:5000/listingsRooms/${_id}`, {
+    fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

@@ -98,7 +98,7 @@ const Register = () => {
         });
 
         //Save users info in the MongoDB Database
-        fetch("http://localhost:5000/users", {
+        fetch("https://roommates-finder-server-six.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

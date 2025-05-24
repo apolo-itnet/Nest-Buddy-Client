@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        loader: () => fetch("https://roommates-finder-server-six.vercel.app/listingsRooms"),
         element: <Home />,
         hydrateFallbackElement: <LoadingSpinner />,
       },
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/listing-card-section",
-        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        loader: () => fetch("https://roommates-finder-server-six.vercel.app/listingsRooms"),
         element: (
           <privateRoutes>
             <ListingRoomSection />
@@ -54,13 +54,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/browse-listing",
-        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        loader: () => fetch("https://roommates-finder-server-six.vercel.app/listingsRooms"),
         element: <BrowseListings />,
         hydrateFallbackElement: <LoadingSpinner />,
       },
       {
         path: "/my-listings",
-        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        loader: () => fetch("https://roommates-finder-server-six.vercel.app/listingsRooms"),
         element: (
           <PrivateRoutes>
             <MyListings></MyListings>
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       {
         path: "/update-listing/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/listingsRooms/${params.id}`),
+          fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/${params.id}`),
         element: (
           <PrivateRoutes>
             <UpdateListing />
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/listingsRooms/${params.id}`),
+          fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/${params.id}`),
         element: (
           <PrivateRoutes>
             <RoomDetails />

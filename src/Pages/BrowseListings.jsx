@@ -26,7 +26,7 @@ const BrowseListings = () => {
       try {
         // লিস্টিং ফেচ
         const listingResponse = await fetch(
-          "http://localhost:5000/listingsRooms"
+          "https://roommates-finder-server-six.vercel.app/listingsRooms"
         );
         if (!listingResponse.ok) throw new Error("Failed to fetch listings");
         const listings = await listingResponse.json();
@@ -36,7 +36,7 @@ const BrowseListings = () => {
         setListingData(userListings);
 
         // সব ইউজার ফেচ
-        const usersResponse = await fetch("http://localhost:5000/users");
+        const usersResponse = await fetch("https://roommates-finder-server-six.vercel.app/users");
         if (!usersResponse.ok) throw new Error("Failed to fetch users");
         const users = await usersResponse.json();
         setMongoUsers(users);

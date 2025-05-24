@@ -33,7 +33,7 @@ const Navbar = ({theme, toggleTheme}) => {
       try {
         const encodedEmail = encodeURIComponent(user.email);
         const res = await fetch(
-          `http://localhost:5000/users/email/${encodedEmail}`
+          `https://roommates-finder-server-six.vercel.app/users/email/${encodedEmail}`
         );
         if (!res.ok) throw new Error("Failed to fetch MongoDB user");
         const data = await res.json();
