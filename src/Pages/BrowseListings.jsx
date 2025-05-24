@@ -209,7 +209,7 @@ const BrowseListings = () => {
                           key={index}
                           className="px-2 bg-white hover:bg-gray-50 font-cabin"
                         >
-                          <td className="">
+                          <td className=" whitespace-nowrap lg:whitespace-normal">
                             <a className="block p-2">
                               <div className="flex items-center gap-x-4">
                                 <img
@@ -240,7 +240,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className=" ">
+                          <td className=" whitespace-nowrap lg:whitespace-normal">
                             <div className="block p-6" href="#">
                               <span className="block text-md font-medium text-gray-800">
                                 {user.title}
@@ -251,7 +251,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className=" ">
+                          <td className=" whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
                               <span className="text-sm text-gray-600">
                                 {user.location}
@@ -259,7 +259,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className="w-32 ">
+                          <td className="w-32 whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
                               <span className="text-sm text-gray-600">
                                 {user.roomType}
@@ -267,7 +267,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className="w-36 ">
+                          <td className="w-36 whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
                               <span className="text-sm text-gray-600">
                                 {user.localTime}
@@ -275,7 +275,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className="whitespace-nowrap">
+                          <td className=" whitespace-nowrap lg:whitespace-normal">
                             <div className="block p-6" href="#">
                               <span
                                 className={`w-full text-center py-2 px-3 flex justify-center items-center gap-x-1 text-sm font-medium  rounded-xl ${
@@ -291,7 +291,7 @@ const BrowseListings = () => {
                             </div>
                           </td>
 
-                          <td className="pr-3">
+                          <td className="pr-3 whitespace-nowrap lg:whitespace-normal">
                             <div>
                               <Link
                                 to={`/details/${user._id}`}
