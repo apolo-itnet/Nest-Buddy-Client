@@ -1,6 +1,7 @@
-import React from 'react';
-import Slider from '../Components/Slider';
-import Testimonial from '../Components/Testimonial';
+import React from "react";
+import Slider from "../Components/Slider";
+import Testimonial from "../Components/Testimonial";
+import ListingRoomSection from "../Components/ListingRoomSection";
 
 const Home = () => {
   return (
@@ -8,8 +9,11 @@ const Home = () => {
       <div>
         <Slider></Slider>
       </div>
-      <div id='testimonial'>
-        <Testimonial/>
+      <div>
+        <ListingRoomSection />
+      </div>
+      <div id="testimonial">
+        <Testimonial />
       </div>
     </div>
   );

@@ -40,7 +40,9 @@ const UpdateListing = () => {
   } = useLoaderData();
 
   const loadedData = useLoaderData();
-  const [selectedAmenities, setSelectedAmenities] = useState(loadedData.amenities || []);
+  const [selectedAmenities, setSelectedAmenities] = useState(
+    loadedData.amenities || []
+  );
 
   const [user, setUser] = useState(null);
   const [mongoUser, setMongoUser] = useState(null);
@@ -73,7 +75,7 @@ const UpdateListing = () => {
     const formData = new FormData(form);
     const UpdateListing = Object.fromEntries(
       [...formData.entries()].filter(([key]) => key !== "amenities")
-    )
+    );
     console.log(UpdateListing);
 
     UpdateListing.amenities = selectedAmenities;
@@ -84,8 +86,6 @@ const UpdateListing = () => {
       isoTime: now.toISOString(),
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
-
-   
 
     fetch(`http://localhost:5000/listingsRooms/${_id}`, {
       method: "PUT",

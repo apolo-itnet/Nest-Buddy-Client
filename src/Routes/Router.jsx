@@ -11,6 +11,7 @@ import BrowseListings from "../Pages/BrowseListings";
 import MyListings from "../Pages/MyListings";
 import UpdateListing from "../Pages/UpdateListing";
 import RoomDetails from "../Pages/RoomDetails";
+import ListingRoomSection from "../Components/ListingRoomSection";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: <Home />,
         hydrateFallbackElement: <LoadingSpinner />,
       },
@@ -31,6 +33,15 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/listing-card-section",
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        element: (
+          <privateRoutes>
+            <ListingRoomSection />
+          </privateRoutes>
+        ),
       },
       {
         path: "/add-listing",

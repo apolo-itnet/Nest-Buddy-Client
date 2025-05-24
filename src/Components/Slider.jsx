@@ -38,7 +38,7 @@ const Slider = () => {
   }, []);
 
   return (
-    <div className="relative h-[calc(100vh-70px)] max-w-6xl mx-auto flex justify-center items-center rounded-2xl overflow-hidden">
+    <div className="relative h-[calc(100vh-90px)] max-w-6xl mx-auto top-2 flex justify-center items-center rounded-2xl overflow-hidden py-4">
       <Swiper
         effect={"coverflow"}
         grabCursor={false}
@@ -66,7 +66,7 @@ const Slider = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative  ">
-              <div className="h-[calc(100vh-70px)] rounded-2xl overflow-hidden">
+              <div className="h-[calc(100vh-90px)] rounded-2xl overflow-hidden">
                 <img
                   src={slide.img}
                   alt={slide.title}
