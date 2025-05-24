@@ -4,13 +4,15 @@ import ListingCard from "./ListingCard";
 
 const ListingRoomSection = () => {
   const listingsRooms = useLoaderData();
-  console.log(listingsRooms);
   
+  const [filteredRooms, setFilteredRooms] = useState(false);
+  const  displayRooms = filteredRooms ? listingsRooms : listingsRooms.slice(0,6);
+
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    setRooms(listingsRooms);
-  }, [listingsRooms]);
+    setRooms(displayRooms);
+  }, [listingsRooms, filteredRooms]);
 
   return (
     <div>
