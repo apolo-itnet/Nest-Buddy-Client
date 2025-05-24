@@ -8,7 +8,7 @@ import { AuthContext } from "../Context/AuthContext";
 const BrowseListings = () => {
   const listingUsers = useLoaderData();
   const { user } = useContext(AuthContext);
-  
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -20,15 +20,19 @@ const BrowseListings = () => {
 
   const [listingData, setListingData] = useState([]);
   const [mongoUsers, setMongoUsers] = useState([]);
-  
-   useEffect(() => {
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         // লিস্টিং ফেচ
-        const listingResponse = await fetch("http://localhost:5000/listingsRooms");
+        const listingResponse = await fetch(
+          "http://localhost:5000/listingsRooms"
+        );
         if (!listingResponse.ok) throw new Error("Failed to fetch listings");
         const listings = await listingResponse.json();
-        const userListings = listings.filter((listing) => listing.email === user?.email);
+        const userListings = listings.filter(
+          (listing) => listing.email === user?.email
+        );
         setListingData(userListings);
 
         // সব ইউজার ফেচ
@@ -74,12 +78,11 @@ const BrowseListings = () => {
 
   return (
     <div>
-      {/* Table Section */}
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="w-full mx-auto responsive-padding py-10 lg:py-14 ">
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
-            <div className="p-1.5 min-w-full inline-block align-middle">
-              <div className="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden">
+            <div className="p-1.5 w-full inline-block align-middle">
+              <div className="bg-white border border-gray-200 rounded-xl shadow-2xs">
                 {/* Header */}
                 <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
                   <div className="sm:col-span-1">
@@ -136,169 +139,173 @@ const BrowseListings = () => {
                 {/* End Header */}
 
                 {/* Table */}
-                <table className="min-w-full divide-y divide-gray-200 font-manrope">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Image
-                          </span>
-                        </div>
-                      </th>
+                <div className="overflow-x-auto">
+                  <table className="w-full divide-y divide-gray-200 font-manrope">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Image
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Posted User
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Posted User
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Details
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Details
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Location
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Location
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Room Type
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Room Type
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Posted Date
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Posted Date
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-start">
-                        <div className="flex items-center gap-x-2">
-                          <span className="text-sm font-semibold uppercase text-gray-800">
-                            Availability
-                          </span>
-                        </div>
-                      </th>
+                        <th scope="col" className="px-6 py-3 text-start">
+                          <div className="flex items-center gap-x-2">
+                            <span className="text-sm font-semibold uppercase text-gray-800">
+                              Availability
+                            </span>
+                          </div>
+                        </th>
 
-                      <th scope="col" className="px-6 py-3 text-end"></th>
-                    </tr>
-                  </thead>
+                        <th scope="col" className="px-6 py-3 text-end"></th>
+                      </tr>
+                    </thead>
 
-                  <tbody className="divide-y divide-gray-200">
-                    {paginatedUsers.map((user, index) => (
-                      <tr
-                        key={index}
-                        className="px-2 bg-white hover:bg-gray-50 font-cabin"
-                      >
-                        <td className="">
-                          <a className="block p-2">
-                            <div className="flex items-center gap-x-4">
-                              <img
-                                className="shrink-0 w-24 h-24 object-center object-cover rounded-lg"
-                                src={user.photo}
-                                alt="Product Image"
-                              />
-                            </div>
-                          </a>
-                        </td>
+                    <tbody className="divide-y divide-gray-200">
+                      {paginatedUsers.map((user, index) => (
+                        <tr
+                          key={index}
+                          className="px-2 bg-white hover:bg-gray-50 font-cabin"
+                        >
+                          <td className="">
+                            <a className="block p-2">
+                              <div className="flex items-center gap-x-4">
+                                <img
+                                  className="shrink-0 w-24 h-24 object-center object-cover rounded-lg"
+                                  src={user.photo}
+                                  alt="Product Image"
+                                />
+                              </div>
+                            </a>
+                          </td>
 
-                         <td className="whitespace-nowrap">
-                          <div className="block p-6" href="#">
-                            <div className="flex flex-col  items-center gap-x-3">
-                              { <img
-                                className="posted-user-img inline-block size-12 rounded-full border border-gray-200 p-1"
-                                src={getUserPhoto(user.email)}
-                                alt="User Image"
-                              /> }
-                              <div className="grow">
-                                <span className="block text-sm font-semibold text-gray-800">
-                                  {user.first_name + " " + user.last_name}
-                                </span>
+                          <td className="whitespace-nowrap">
+                            <div className="block p-6" href="#">
+                              <div className="flex flex-col  items-center gap-x-3">
+                                {
+                                  <img
+                                    className="posted-user-img inline-block size-12 rounded-full border border-gray-200 p-1"
+                                    src={getUserPhoto(user.email)}
+                                    alt="User Image"
+                                  />
+                                }
+                                <div className="grow">
+                                  <span className="block text-sm font-semibold text-gray-800">
+                                    {user.first_name + " " + user.last_name}
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
+                          </td>
 
-                        <td className="">
-                          <div className="block p-6" href="#">
-                            <span className="block text-md font-medium text-gray-800">
-                              {user.title}
-                            </span>
-                            <span className="block text-sm text-justify py-2 text-gray-500">
-                              {user.lifestyle}
-                            </span>
-                          </div>
-                        </td>
+                          <td className=" ">
+                            <div className="block p-6" href="#">
+                              <span className="block text-md font-medium text-gray-800">
+                                {user.title}
+                              </span>
+                              <span className="block text-sm text-justify py-2 text-gray-500">
+                                {user.lifestyle}
+                              </span>
+                            </div>
+                          </td>
 
-                        <td className="">
-                          <div className="block p-6" href="#">
-                            <span className="text-sm text-gray-600">
-                              {user.location}
-                            </span>
-                          </div>
-                        </td>
+                          <td className=" ">
+                            <div className="block p-6" href="#">
+                              <span className="text-sm text-gray-600">
+                                {user.location}
+                              </span>
+                            </div>
+                          </td>
 
-                        <td className="w-32">
-                          <div className="block p-6" href="#">
-                            <span className="text-sm text-gray-600">
-                              {user.roomType}
-                            </span>
-                          </div>
-                        </td>
+                          <td className="w-32 ">
+                            <div className="block p-6" href="#">
+                              <span className="text-sm text-gray-600">
+                                {user.roomType}
+                              </span>
+                            </div>
+                          </td>
 
-                        <td className="w-36">
-                          <div className="block p-6" href="#">
-                            <span className="text-sm text-gray-600">
-                              {user.localTime}
-                            </span>
-                          </div>
-                        </td>
+                          <td className="w-36 ">
+                            <div className="block p-6" href="#">
+                              <span className="text-sm text-gray-600">
+                                {user.localTime}
+                              </span>
+                            </div>
+                          </td>
 
-                        <td className="whitespace-nowrap">
-                          <div className="block p-6" href="#">
-                            <span
-                              className={`w-full text-center py-2 px-3 flex justify-center items-center gap-x-1 text-sm font-medium  rounded-xl ${
-                                user.availability === "Immediate"
-                                  ? "bg-yellow-200 text-yellow-900"
-                                  : user.availability === "Available"
-                                  ? "bg-green-100 text-green-700"
-                                  : "bg-gray-200 text-gray-700"
-                              }`}
-                            >
-                              {user.availability}
-                            </span>
-                          </div>
-                        </td>
+                          <td className="whitespace-nowrap">
+                            <div className="block p-6" href="#">
+                              <span
+                                className={`w-full text-center py-2 px-3 flex justify-center items-center gap-x-1 text-sm font-medium  rounded-xl ${
+                                  user.availability === "Immediate"
+                                    ? "bg-yellow-200 text-yellow-900"
+                                    : user.availability === "Available"
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-gray-200 text-gray-700"
+                                }`}
+                              >
+                                {user.availability}
+                              </span>
+                            </div>
+                          </td>
 
-                        <td className="pr-3">
-                          <div>
-                            <Link
-                              to={`/details/${user._id}`}
-                              className="text-white bg-lime-500 rounded-sm px-4 py-6 btn shadow-none border-none hover:bg-lime-600 transition-colors duration-300 ease-in-out"
-                            >
-                              <IoEyeSharp size={16} />
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                          <td className="pr-3">
+                            <div>
+                              <Link
+                                to={`/details/${user._id}`}
+                                className="text-white bg-lime-500 rounded-sm px-4 py-6 btn shadow-none border-none hover:bg-lime-600 transition-colors duration-300 ease-in-out"
+                              >
+                                <IoEyeSharp size={16} />
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
                 {/* End Table */}
 
                 {/* Footer */}
@@ -355,7 +362,6 @@ const BrowseListings = () => {
         </div>
         {/* End Card */}
       </div>
-      {/* End Table Section */}
     </div>
   );
 };

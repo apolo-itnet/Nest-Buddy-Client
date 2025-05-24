@@ -38,7 +38,7 @@ const Slider = () => {
   }, []);
 
   return (
-    <div className="relative h-[calc(100vh-90px)] max-w-6xl mx-auto top-2 flex justify-center items-center rounded-2xl overflow-hidden py-4">
+    <div className="relative h-[calc(100vh-90px)] w-full mx-auto top-2 flex justify-center items-center rounded-2xl overflow-hidden py-4 responsive-padding">
       <Swiper
         effect={"coverflow"}
         grabCursor={false}
@@ -66,13 +66,15 @@ const Slider = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative  ">
+
+              {/* Image Section */}
               <div className="h-[calc(100vh-90px)] rounded-2xl overflow-hidden">
                 <img
                   src={slide.img}
                   alt={slide.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute max-w-6xl mx-auto rounded-2xl inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10" />
+                <div className="absolute w-full mx-auto rounded-2xl inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10" />
               </div>
 
               {/* Text Section */}

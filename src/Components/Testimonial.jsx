@@ -128,7 +128,7 @@ const Testimonial = () => {
   return (
     <div>
       <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 ">
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
 
           <div>
             <Swiper
@@ -148,12 +148,12 @@ const Testimonial = () => {
                 setSelectedId(testimonials[swiper.realIndex].id)
               }
               watchSlidesProgress = {true}
-              className="relative max-w-2xl mx-auto mySwiper"
+              className="relative w-xs md:w-xl lg:max-w-2xl mx-auto mySwiper"
             >
               {testimonials.map((t) => (
                 <SwiperSlide key={t.id}>
                   {t.id === selectedId && (
-                    <div className="w-xl mx-auto">
+                    <div className="lg:w-xl mx-auto">
                       <div className="flex flex-col justify-center items-center">
                         <p className="md:text-lg text-base text-center italic mb-6 ">
                           "{t.quote}"

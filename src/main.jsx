@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router";
 import router from "./Routes/Router.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
 import Aos from "aos";
-
+import "aos/dist/aos.css";
 
 Aos.init({
   duration: 1000,

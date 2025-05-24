@@ -87,7 +87,7 @@ const MyListings = () => {
   return (
     <div>
       {/* Table Section */}
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="w-full mx-auto responsive-padding py-10 lg:py-14">
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">

@@ -83,7 +83,7 @@ const Login = () => {
             data-aos="fade-in"
             data-aos-once="true"
             data-aos-duration="1000"
-            className="w-full max-w-md mx-auto mt-8"
+            className="w-full max-w-2xl mx-auto mt-8"
           >
             <div className="bg-white border border-gray-200 rounded-xl shadow-2xs">
               <div className="p-4 sm:p-7">

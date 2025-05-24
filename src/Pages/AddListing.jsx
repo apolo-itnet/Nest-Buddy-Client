@@ -13,7 +13,7 @@ const AddListing = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full mx-auto responsive-padding ">
 
       {/* active inactive tabs */}
       <div className=" pt-4">

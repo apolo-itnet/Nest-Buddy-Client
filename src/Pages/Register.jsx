@@ -140,14 +140,14 @@ const Register = () => {
   return (
     <div>
       <Toaster reverseOrder={false} />
-      <div className="relative w-full max-w-xl mx-auto ">
+      <div className="relative w-full mx-auto max-w-3xl responsive-padding ">
         <div
           data-aos="fade-left"
           data-aos-duration="1000"
           data-aos-delay="300"
-          className="w-full mt-7 bg-white border border-gray-200 rounded-xl shadow-2xs"
+          className=" mt-7 bg-white border border-gray-200 rounded-xl shadow-2xs"
         >
-          <div className="p-4 sm:p-7">
+          <div className="p-4 sm:p-7 mx-auto">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800">
                 Register your account

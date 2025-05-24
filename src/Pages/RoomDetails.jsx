@@ -63,27 +63,29 @@ const RoomDetails = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full mx-auto responsive-padding">
       <h1 className="text-3xl font-poetsen text-center py-6">Room Details</h1>
 
-      <div className="flex justify-end items-center space-x-6 font-medium py-4">
-        <p>Posted: {localTime}</p>
-        <p className="px-4 border-x border-x-gray-300">
-          Update: {updatedAt || "Not updated yet"}
+      <div className="flex justify-end items-center  md:space-x-6 font-medium py-4 text-xs md:text-sm ">
+        <p className=" flex-1 md:flex-none">Posted: <br className="md:hidden" /> {localTime}</p>
+        <p className="px-4 flex-1 md:flex-none border-x border-x-gray-300">
+          Update: <br className="md:hidden"/> {updatedAt || "Not updated yet"}
         </p>
-        <p className="flex items-center gap-2"> <span className="text-lime-600"><GoEye size={18} /></span> Post Views: {views}</p>
+        <p className="flex flex-1 md:flex-none items-center gap-2"> <span className="text-lime-600"><span className="hidden md:block"><GoEye size={18} /></span></span> Post Views: {views} <span className="text-lime-600"><GoEye size={18} /></span></p>
       </div>
 
-      <div className="max-w-6xl h-80 mx-auto rounded-2xl overflow-hidden mb-6">
+      <div className="w-full h-80 mx-auto mb-6">
         <img
           src={photo}
           alt=""
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center rounded-2xl"
         />
       </div>
 
-      <div className="font-manrope flex justify-between items-start gap-10">
-        <div className="w-2/3">
+      <div className="font-manrope flex flex-col md:flex-row justify-between items-start gap-10">
+
+        <div className="w-full md:w-2/3">
+
           <p className="font-league font-semibold text-3xl">
             {first_name}'s Place in -{" "}
             <span className="hover:underline decoration-1 underline-lime-500 cursor-pointer text-gray-600">
@@ -149,7 +151,7 @@ const RoomDetails = () => {
           </div>
         </div>
 
-        <aside className="sticky top-24 w-1/3">
+        <aside className="sticky top-24 w-full md:w-1/3">
           <div className="border border-gray-300 bg-gray-50 rounded-2xl p-4 mb-4">
             <p className="font-league font-semibold text-xl uppercase border-b border-gray-300 py-2 mb-3">
               Posted By

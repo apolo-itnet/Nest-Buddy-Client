@@ -117,7 +117,7 @@ const ListingForm = () => {
 
   return (
     <div>
-      <div className="listing-container max-w-5xl mx-auto border border-gray-200 rounded-2xl my-6">
+      <div className="listing-container w-full mx-auto responsive-padding border border-gray-200 rounded-2xl my-6">
         <div className="flex justify-between items-center border-b border-gray-200 py-2 px-3">
           <div className="flex justify-center items-center gap-2">
             <span className="text-lime-600">
@@ -156,11 +156,11 @@ const ListingForm = () => {
             className="modal modal-middle flex justify-center items-center z-[50]"
           >
             {/* Form  */}
-            <div className="max-w-12/12 mx-auto flex justify-center p-2 lg:p-8">
+            <div className="w-full mx-auto  overflow-y-auto responsive-padding  ">
               <form
                 onSubmit={handleAddListing}
                 method="dialog"
-                className="w-full bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
+                className="w-full mx-auto bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
               >
                 <h2 className="text-3xl font-poetsen font-medium text-center mb-4">
                   Create Listing
@@ -407,6 +407,7 @@ const ListingForm = () => {
               </form>
             </div>
           </dialog>
+
         </div>
       </div>
     </div>
