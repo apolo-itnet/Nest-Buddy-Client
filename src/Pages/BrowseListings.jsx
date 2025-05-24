@@ -78,15 +78,15 @@ const BrowseListings = () => {
 
   return (
     <div>
-      <div className="w-full mx-auto responsive-padding py-10 lg:py-14 ">
+      <div className="w-full mx-auto responsive-padding py-10 lg:py-14 text-base-content bg-base-100 ">
         <div className="flex flex-col">
           <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 w-full inline-block align-middle">
-              <div className="bg-white border border-gray-200 rounded-xl shadow-2xs">
+              <div className=" border border-base-300 rounded-xl shadow-2xs">
                 {/* Header */}
-                <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
+                <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-base-300">
                   <div className="sm:col-span-1">
-                    <label className="sr-only border border-gray-200 rounded-lg">
+                    <label className="sr-only border border-base-300 rounded-lg">
                       Search
                     </label>
                     <div className="relative">
@@ -94,7 +94,7 @@ const BrowseListings = () => {
                         type="text"
                         id="hs-as-table-product-review-search"
                         name="hs-as-table-product-review-search"
-                        className="py-2 px-3 ps-11 block w-full border border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+                        className="py-2 px-3 ps-11 block w-full border border-base-300 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
                         placeholder="Search"
                       />
                       <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
@@ -122,13 +122,13 @@ const BrowseListings = () => {
                         <button
                           id="hs-as-table-table-filter-dropdown"
                           type="button"
-                          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-base-300 bg-white  shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
                           aria-haspopup="menu"
                           aria-expanded="false"
                           aria-label="Dropdown"
                         >
                           Filter
-                          <span className="ps-2 text-xs font-semibold text-blue-600 border-s border-gray-200">
+                          <span className="ps-2 text-xs font-semibold text-blue-600 border-s border-base-300">
                             1
                           </span>
                         </button>
@@ -141,11 +141,11 @@ const BrowseListings = () => {
                 {/* Table */}
                 <div className="overflow-x-auto">
                   <table className="w-full divide-y divide-gray-200 font-manrope">
-                    <thead className="bg-gray-50">
+                    <thead className="">
                       <tr>
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Image
                             </span>
                           </div>
@@ -153,7 +153,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Posted User
                             </span>
                           </div>
@@ -161,7 +161,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Details
                             </span>
                           </div>
@@ -169,7 +169,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Location
                             </span>
                           </div>
@@ -177,7 +177,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Room Type
                             </span>
                           </div>
@@ -185,7 +185,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Posted Date
                             </span>
                           </div>
@@ -193,7 +193,7 @@ const BrowseListings = () => {
 
                         <th scope="col" className="px-6 py-3 text-start">
                           <div className="flex items-center gap-x-2">
-                            <span className="text-sm font-semibold uppercase text-gray-800">
+                            <span className="text-sm font-semibold uppercase ">
                               Availability
                             </span>
                           </div>
@@ -207,7 +207,7 @@ const BrowseListings = () => {
                       {paginatedUsers.map((user, index) => (
                         <tr
                           key={index}
-                          className="px-2 bg-white hover:bg-gray-50 font-cabin"
+                          className="px-2  hover:bg-base-200 font-cabin"
                         >
                           <td className=" whitespace-nowrap lg:whitespace-normal">
                             <a className="block p-2">
@@ -226,13 +226,13 @@ const BrowseListings = () => {
                               <div className="flex flex-col  items-center gap-x-3">
                                 {
                                   <img
-                                    className="posted-user-img inline-block size-12 rounded-full border border-gray-200 p-1"
+                                    className="posted-user-img inline-block size-12 rounded-full border border-base-300 p-1"
                                     src={getUserPhoto(user.email)}
                                     alt="User Image"
                                   />
                                 }
                                 <div className="grow">
-                                  <span className="block text-sm font-semibold text-gray-800">
+                                  <span className="block text-sm font-semibold ">
                                     {user.first_name + " " + user.last_name}
                                   </span>
                                 </div>
@@ -242,10 +242,10 @@ const BrowseListings = () => {
 
                           <td className=" whitespace-nowrap lg:whitespace-normal">
                             <div className="block p-6" href="#">
-                              <span className="block text-md font-medium text-gray-800">
+                              <span className="block text-md font-medium ">
                                 {user.title}
                               </span>
-                              <span className="block text-sm text-justify py-2 text-gray-500">
+                              <span className="block text-sm text-justify py-2 ">
                                 {user.lifestyle}
                               </span>
                             </div>
@@ -253,7 +253,7 @@ const BrowseListings = () => {
 
                           <td className=" whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
-                              <span className="text-sm text-gray-600">
+                              <span className="text-sm ">
                                 {user.location}
                               </span>
                             </div>
@@ -261,7 +261,7 @@ const BrowseListings = () => {
 
                           <td className="w-32 whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
-                              <span className="text-sm text-gray-600">
+                              <span className="text-sm ">
                                 {user.roomType}
                               </span>
                             </div>
@@ -269,7 +269,7 @@ const BrowseListings = () => {
 
                           <td className="w-36 whitespace-nowrap lg:whitespace-normal ">
                             <div className="block p-6" href="#">
-                              <span className="text-sm text-gray-600">
+                              <span className="text-sm ">
                                 {user.localTime}
                               </span>
                             </div>
@@ -309,13 +309,13 @@ const BrowseListings = () => {
                 {/* End Table */}
 
                 {/* Footer */}
-                <div className="px-4 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
-                  <div className="max-w-sm py-2 px-2 flex justify-center items-center border border-gray-300 rounded-lg">
+                <div className="px-4 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-base-300">
+                  <div className="max-w-sm py-2 px-2 flex justify-center items-center border border-base-300 rounded-lg">
                     <span className="font-medium">Page No.</span>
                     <select
                       value={currentPage}
                       onChange={handlePageChange}
-                      className="py-1 px-3 flex items-center border-gray-200 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500"
+                      className="py-1 px-3 flex items-center border-base-300 rounded-lg text-sm focus:border-lime-500 focus:ring-lime-500"
                     >
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                         (page) => (
@@ -332,7 +332,7 @@ const BrowseListings = () => {
                       type="button"
                       onClick={handlePrev}
                       disabled={currentPage === 1}
-                      className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
+                      className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-base-300   shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
                         currentPage === 1
                           ? "opacity-50 pointer-events-none"
                           : "cursor-pointer"
@@ -345,7 +345,7 @@ const BrowseListings = () => {
                       type="button"
                       onClick={handleNext}
                       disabled={currentPage === totalPages}
-                      className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
+                      className={`py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-base-300   shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 ${
                         currentPage === totalPages
                           ? "opacity-50 pointer-events-none"
                           : "cursor-pointer"

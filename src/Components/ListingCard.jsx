@@ -30,7 +30,7 @@ const ListingCard = ({ room, rooms, setRooms }) => {
 
   return (
     <div>
-      <div className="font-manrope flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-xs border border-gray-200 hover:border-lime-300 transition-colors duration-500 ease-in-out">
+      <div className="font-manrope flex flex-col p-6 space-y-6 overflow-hidden rounded-lg shadow-xs border border-base-200 hover:border-lime-300 transition-colors duration-500 ease-in-out text-base-content bg-base-100">
         <div className="flex space-x-4">
           <img
             alt=""
@@ -70,7 +70,7 @@ const ListingCard = ({ room, rooms, setRooms }) => {
               {availability}
             </p>
             </div>
-            <p className="text-sm  rounded-md px-3 py-1 inline-block bg-gray-100  ">{location}</p>
+            <p className="text-sm  rounded-md px-3 py-1 inline-block  text-base-content bg-base-100">{location}</p>
           </div>
         </div>
         <div className="flex flex-wrap justify-between">

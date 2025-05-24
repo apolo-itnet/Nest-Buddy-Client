@@ -55,7 +55,7 @@ const ListingForm = () => {
     const AddListing = Object.fromEntries(formData.entries());
 
     AddListing.amenities = selectedAmenities;
-    
+
     const now = new Date();
     const listingMeta = {
       localTime: now.toLocaleString(),
@@ -106,18 +106,20 @@ const ListingForm = () => {
   };
 
   const handleAmenityChange = (e) => {
-    const {value, checked} = e.target;
+    const { value, checked } = e.target;
 
     if (checked) {
       setSelectedAmenities([...selectedAmenities, value]);
     } else {
-      setSelectedAmenities(selectedAmenities.filter((amenity) => amenity !== value));
+      setSelectedAmenities(
+        selectedAmenities.filter((amenity) => amenity !== value)
+      );
     }
-  }
+  };
 
   return (
-    <div>
-      <div className="listing-container w-full mx-auto responsive-padding border border-gray-200 rounded-2xl my-6">
+    <div className="w-full mx-auto responsive-padding text-base-content bg-base-100">
+      <div className="listing-container w-full mx-auto border border-gray-200 rounded-2xl my-6">
         <div className="flex justify-between items-center border-b border-gray-200 py-2 px-3">
           <div className="flex justify-center items-center gap-2">
             <span className="text-lime-600">
@@ -156,31 +158,32 @@ const ListingForm = () => {
             className="modal modal-middle flex justify-center items-center z-[50]"
           >
             {/* Form  */}
-            <div className="w-full mx-auto  overflow-y-auto responsive-padding  ">
+            <div className="w-full mx-auto overflow-y-auto responsive-padding  ">
               <form
                 onSubmit={handleAddListing}
                 method="dialog"
-                className="w-full mx-auto bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
+                className="w-full mx-auto bg-base-100 p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
               >
-                <h2 className="text-3xl font-poetsen font-medium text-center mb-4">
-                  Create Listing
-                </h2>
+                <div className="flex justify-between items-center">
+                  <h2 className="text-3xl flex justify-center items-center font-poetsen font-medium text-center mb-4">
+                    Create Listing
+                  </h2>
 
-                <button
-                  onClick={() => {
-                    setIsModalOpen(false);
-                    document.getElementById("show_form").close();
-                  }}
-                  type="button"
-                  className="close-btn btn absolute top-0 right-0 rounded-2xl bg-white border-none shadow-none text-lime-600 hover:bg-lime-50 hover:text-lime-600"
-                >
-                  <IoClose size={26} />
-                </button>
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(false);
+                        document.getElementById("show_form").close();
+                      }}
+                      type="button"
+                      className="close-btn btn rounded-2xl border-none  shadow-none hover:bg-lime-50 hover:text-lime-600"
+                    >
+                      <IoClose size={26} />
+                    </button>
+                </div>
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 gap-x-10">
-
                   <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                    <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                       <FaEnvelope /> User Email
                     </label>
                     <input
@@ -188,13 +191,13 @@ const ListingForm = () => {
                       name="email"
                       readOnly
                       defaultValue={user?.email || mongoUser?.email}
-                      className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                      className="w-full  border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                     />
                   </div>
 
                   <div className="flex gap-4">
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaUser /> First Name
                       </label>
                       <input
@@ -202,12 +205,12 @@ const ListingForm = () => {
                         name="first_name"
                         readOnly
                         value={mongoUser?.firstName || ""}
-                        className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                        className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
                     </div>
 
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaUser /> Last Name
                       </label>
                       <input
@@ -215,13 +218,13 @@ const ListingForm = () => {
                         name="last_name"
                         defaultValue={mongoUser?.lastName || ""}
                         readOnly
-                        className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                        className="w-full border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                    <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                       <FaListAlt /> Title
                     </label>
                     <input
@@ -235,7 +238,7 @@ const ListingForm = () => {
 
                   <div className="flex gap-4">
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaMapMarkerAlt /> Location
                       </label>
                       <input
@@ -248,7 +251,7 @@ const ListingForm = () => {
                     </div>
 
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaDollarSign /> Rent Amount
                       </label>
                       <input
@@ -262,7 +265,7 @@ const ListingForm = () => {
                   </div>
 
                   <div>
-                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                    <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                       <FaSlidersH /> Lifestyle Preferences
                     </label>
                     <input
@@ -276,7 +279,7 @@ const ListingForm = () => {
 
                   <div className="flex gap-4">
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaListAlt /> Room Type
                       </label>
                       <select
@@ -292,7 +295,7 @@ const ListingForm = () => {
                     </div>
 
                     <div className="w-1/2">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaCalendarAlt /> Availability
                       </label>
                       <select
@@ -311,7 +314,7 @@ const ListingForm = () => {
                   <div className="w-full flex flex-col gap-4 ">
                     <div className="flex gap-4 w-full">
                       <div className="w-1/2">
-                        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                        <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                           <FaPhone /> Contact Info
                         </label>
                         <input
@@ -324,7 +327,7 @@ const ListingForm = () => {
                       </div>
 
                       <div className="w-1/2">
-                        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                        <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                           <FaImage /> Photo URL
                         </label>
                         <input
@@ -338,7 +341,7 @@ const ListingForm = () => {
                     </div>
 
                     {/* <div className="">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaFileUpload /> Upload Photo
                       </label>
                       <input
@@ -382,7 +385,7 @@ const ListingForm = () => {
                   </div>
 
                   <div className="">
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    <label className="text-sm font-medium  mb-1 block">
                       Description
                     </label>
                     <textarea
@@ -393,7 +396,6 @@ const ListingForm = () => {
                       className="w-full border border-gray-300 rounded-2xl px-4 py-2 focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                     />
                   </div>
-
                 </div>
 
                 <div className="pt-4">
@@ -407,7 +409,6 @@ const ListingForm = () => {
               </form>
             </div>
           </dialog>
-
         </div>
       </div>
     </div>

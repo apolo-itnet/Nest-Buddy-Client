@@ -85,13 +85,13 @@ const Login = () => {
             data-aos-duration="1000"
             className="w-full max-w-2xl mx-auto mt-8"
           >
-            <div className="bg-white border border-gray-200 rounded-xl shadow-2xs">
+            <div className="text-base-content bg-base-100 border border-gray-200 rounded-xl shadow-2xs">
               <div className="p-4 sm:p-7">
                 <div className="text-center">
-                  <h1 className="block text-2xl font-bold text-gray-800">
+                  <h1 className="block text-2xl font-bold">
                     Login your account
                   </h1>
-                  <p className="mt-2 text-sm text-gray-600">
+                  <p className="mt-2 text-sm">
                     Don't have an account yet?
                     <Link
                       to="/register"

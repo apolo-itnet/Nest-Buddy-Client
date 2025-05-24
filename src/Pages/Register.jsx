@@ -140,19 +140,19 @@ const Register = () => {
   return (
     <div>
       <Toaster reverseOrder={false} />
-      <div className="relative w-full mx-auto max-w-3xl responsive-padding ">
+      <div className="relative w-full mx-auto max-w-3xl responsive-padding text-base-content bg-base-100 ">
         <div
           data-aos="fade-left"
           data-aos-duration="1000"
           data-aos-delay="300"
-          className=" mt-7 bg-white border border-gray-200 rounded-xl shadow-2xs"
+          className=" mt-7 border border-base-300 rounded-xl shadow-2xs"
         >
           <div className="p-4 sm:p-7 mx-auto">
             <div className="text-center">
-              <h1 className="block text-2xl font-bold text-gray-800">
+              <h1 className="block text-2xl font-bold ">
                 Register your account
               </h1>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm ">
                 Already have an account?
                 <Link
                   to="/login"
@@ -167,7 +167,7 @@ const Register = () => {
               <button
                 onClick={handleGoogleSignIn}
                 type="button"
-                className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50"
+                className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-base-200   shadow-2xs hover:bg-base-300 focus:outline-hidden focus:bg-gray-50"
               >
                 <svg
                   className="w-4 h-auto"
@@ -196,7 +196,7 @@ const Register = () => {
                 Sign up with Google
               </button>
 
-              <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6">
+              <div className="py-3 flex items-center text-xs  uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6">
                 Or
               </div>
 
@@ -213,6 +213,7 @@ const Register = () => {
                           type="text"
                           id="fname"
                           name="firstName"
+                          placeholder="First Name"
                           className="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />
@@ -231,6 +232,7 @@ const Register = () => {
                           type="text"
                           id="lname"
                           name="lastName"
+                          placeholder="Last Name"
                           className="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />
@@ -250,6 +252,7 @@ const Register = () => {
                           type="email"
                           id="email"
                           name="email"
+                          placeholder="Email Address"
                           className="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />
@@ -278,6 +281,7 @@ const Register = () => {
                           type="text"
                           id="photo-url"
                           name="photo"
+                          placeholder="Your Photo URL"
                           className="py-2.5 sm:py-3 px-4 block w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />
@@ -330,6 +334,7 @@ const Register = () => {
                         <input
                           type={showConfirmPassword ? "text" : "password"}
                           name="confirmPassword"
+                          placeholder="Confirm Password"
                           className="py-2.5 sm:py-3 px-4 w-full border border-gray-200 rounded-lg sm:text-sm focus:outline-none focus:border-lime-500 focus:ring-lime-500"
                           required
                         />

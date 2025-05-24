@@ -127,7 +127,7 @@ const Testimonial = () => {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 ">
+      <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 text-base-content bg-base-100 ">
         <div className="flex flex-col lg:flex-row gap-4">
 
           <div>
@@ -195,16 +195,16 @@ const Testimonial = () => {
               {/* List */}
               <ul className="grid grid-cols-2 divide-y divide-y-2 divide-x divide-x-2 divide-gray-200 overflow-hidden">
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
                     1.5k+
                   </div>
-                  <p className="text-sm sm:text-base text-gray-600">
+                  <p className="text-sm sm:text-base">
                     registered users who found or became roommates
                   </p>
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold mb-2">
                     <svg
                       className="shrink-0 size-5 text-blue-600"
                       xmlns="http://www.w3.org/2000/svg"
@@ -222,13 +222,13 @@ const Testimonial = () => {
                     </svg>
                     37%
                   </div>
-                  <p className="text-sm sm:text-base text-gray-600">
+                  <p className="text-sm sm:text-base ">
                     increase in roommate matches through our platform
                   </p>
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
                     <svg
                       className="shrink-0 size-5 text-blue-600"
                       xmlns="http://www.w3.org/2000/svg"
@@ -246,16 +246,16 @@ const Testimonial = () => {
                     </svg>
                     100%
                   </div>
-                  <p className="text-sm sm:text-base text-gray-600">
+                  <p className="text-sm sm:text-base ">
                     Ensures a safer and more trustworthy roommate-finding experience.
                   </p>
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2">
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
                     7x
                   </div>
-                  <p className="text-sm sm:text-base text-gray-600">
+                  <p className="text-sm sm:text-base ">
                     Helps users boost their listings for faster visibility and better reach.
                   </p>
                 </li>

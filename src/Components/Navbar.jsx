@@ -9,8 +9,9 @@ import { TbListSearch } from "react-icons/tb";
 import { CgUserList } from "react-icons/cg";
 import { HiOutlineX } from "react-icons/hi";
 import { RiMenu2Fill } from "react-icons/ri";
+import { FaMoon, FaSun } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({theme, toggleTheme}) => {
   const { user, logout } = useContext(AuthContext);
   const [mongoUser, setMongoUser] = useState(null);
   const navigate = useNavigate();
@@ -72,19 +73,19 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex w-full z-50 py-2 border-b border-gray-200 ">
+    <header className="flex w-full z-50 py-2 border-b border-base-300 text-base-content bg-base-100">
       <nav className="relative w-full mx-auto flex justify-between items-center responsive-padding">
         {/* Logo */}
         <NavLink
           to="/"
-          className="hidden lg:flex items-center rounded-xl text-xl font-semibold"
+          className="hidden lg:flex items-center rounded-xl text-xl font-semibold  "
         >
           <img
-            className="w-14 h-14"
+            className="w-14 h-14 "
             src="https://i.postimg.cc/GpdhCL0c/location.gif"
             alt="Nest Buddy logo"
           />
-          <p className="font-poetsen text-xl font-bold hidden md:block hover:text-lime-500 transition-colors duration-300">
+          <p className="font-poetsen text-xl font-bold hidden md:block hover:text-lime-500 transition-colors duration-300 text-base-content bg-base-100">
             Nest Buddy
           </p>
         </NavLink>
@@ -190,7 +191,7 @@ const Navbar = () => {
         </div>
 
         {/* User Profile & Auth Buttons */}
-        <div className="flex  items-center gap-x-3 gap-y-2 max-w-full">
+        <div className="flex justify-between items-center gap-x-3 gap-y-2 max-w-full">
           {mongoUser ? (
             <div className="flex  items-center gap-x-4 relative group max-w-full">
               <img
@@ -207,7 +208,7 @@ const Navbar = () => {
               <button
                 onClick={handleLogout}
                 disabled={isLoading}
-                className="btn py-2 px-6 w-24 h-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-xl border border-lime-500 text-black hover:bg-lime-400 transition-colors duration-300"
+                className="btn py-2 px-6 w-24 h-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-xl border border-lime-500  hover:bg-lime-400 transition-colors duration-300 "
               >
                 {isLoading ? <ButtonSpinner /> : "Logout"}
               </button>
@@ -226,6 +227,9 @@ const Navbar = () => {
               </Link>
             </>
           )}
+          <button onClick={toggleTheme} className="btn btn-circle btn-ghost text-xl">
+          {theme === "light" ? <FaMoon /> : <FaSun />}
+        </button>
         </div>
       </nav>
     </header>

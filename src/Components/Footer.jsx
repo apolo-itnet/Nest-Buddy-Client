@@ -16,7 +16,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="font-league">
+    <footer className="font-league border border-base-300">
       <div
         className="w-full mx-auto responsive-padding grid md:grid-cols-4 gap-8 pt-12 pb-6"
         

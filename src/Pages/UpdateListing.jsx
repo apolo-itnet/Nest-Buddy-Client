@@ -121,11 +121,11 @@ const UpdateListing = () => {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto flex justify-center p-2">
+      <div className="max-w-7xl mx-auto flex justify-center p-2 text-base-content bg-base-100">
         <form
           onSubmit={handleUpdateListing}
           method="dialog"
-          className="w-full bg-white backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
+          className="w-full  backdrop-blur-xs p-8 rounded-2xl shadow-xl border border-gray-100/50 z-0 "
         >
           <h2 className="text-3xl font-poetsen font-medium text-center mb-4">
             Update Listing
@@ -133,7 +133,7 @@ const UpdateListing = () => {
 
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 gap-x-10">
             <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+              <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                 <FaEnvelope /> User Email
               </label>
               <input
@@ -141,13 +141,13 @@ const UpdateListing = () => {
                 name="email"
                 readOnly
                 defaultValue={email}
-                className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                className="w-full  border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
               />
             </div>
 
             <div className="flex gap-4">
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaUser /> First Name
                 </label>
                 <input
@@ -155,12 +155,12 @@ const UpdateListing = () => {
                   name="first_name"
                   readOnly
                   value={first_name}
-                  className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                  className="w-full  border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                 />
               </div>
 
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaUser /> Last Name
                 </label>
                 <input
@@ -168,13 +168,13 @@ const UpdateListing = () => {
                   name="last_name"
                   defaultValue={last_name}
                   readOnly
-                  className="w-full bg-gray-200 border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
+                  className="w-full  border border-gray-300 rounded-full px-4 py-2  focus:outline-none focus:border-lime-500 focus:ring-lime-500 cursor-not-allowed"
                 />
               </div>
             </div>
 
             <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+              <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                 <FaListAlt /> Title
               </label>
               <input
@@ -189,7 +189,7 @@ const UpdateListing = () => {
 
             <div className="flex gap-4">
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaMapMarkerAlt /> Location
                 </label>
                 <input
@@ -203,7 +203,7 @@ const UpdateListing = () => {
               </div>
 
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaDollarSign /> Rent Amount
                 </label>
                 <input
@@ -218,7 +218,7 @@ const UpdateListing = () => {
             </div>
 
             <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+              <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                 <FaSlidersH /> Lifestyle Preferences
               </label>
               <input
@@ -233,7 +233,7 @@ const UpdateListing = () => {
 
             <div className="flex gap-4">
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaListAlt /> Room Type
                 </label>
                 <select
@@ -256,7 +256,7 @@ const UpdateListing = () => {
               </div>
 
               <div className="w-1/2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                   <FaCalendarAlt /> Availability
                 </label>
                 <select
@@ -282,7 +282,7 @@ const UpdateListing = () => {
             <div className="w-full flex flex-col gap-4 ">
               <div className="flex gap-4 w-full">
                 <div className="w-1/2">
-                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                  <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                     <FaPhone /> Contact Info
                   </label>
                   <input
@@ -296,7 +296,7 @@ const UpdateListing = () => {
                 </div>
 
                 <div className="w-1/2">
-                  <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                  <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                     <FaImage /> Photo URL
                   </label>
                   <input
@@ -311,7 +311,7 @@ const UpdateListing = () => {
               </div>
 
               {/* <div className="">
-                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                      <label className="flex items-center gap-2 text-sm font-medium  mb-1">
                         <FaFileUpload /> Upload Photo
                       </label>
                       <input
@@ -353,7 +353,7 @@ const UpdateListing = () => {
             </div>
 
             <div className="">
-              <label className="text-sm font-medium text-gray-700 mb-1 block">
+              <label className="text-sm font-medium  mb-1 block">
                 Description
               </label>
               <textarea

@@ -29,10 +29,10 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-100">
+    <section className="py-20 dark:bg-base-100 text-base-content">
       <div className="w-full mx-auto responsive-padding text-center font-league">
         <h2 className="text-4xl font-bold mb-4">How It Works</h2>
-        <p className="text-gray-600 mb-10">Find your perfect roommate in just a few steps</p>
+        <p className=" mb-10">Find your perfect roommate in just a few steps</p>
 
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
@@ -40,11 +40,11 @@ const HowItWorks = () => {
               key={index}
               data-aos="fade-up"
               data-aos-delay={index * 150}
-              className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-all duration-300"
+              className=" rounded-2xl shadow-md p-6 hover:shadow-xl transition-all duration-300 border-base-200 border"
             >
               {step.icon}
               <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.desc}</p>
+              <p className="">{step.desc}</p>
             </div>
           ))}
         </div>
