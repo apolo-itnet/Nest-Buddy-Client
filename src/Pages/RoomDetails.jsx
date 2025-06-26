@@ -35,13 +35,13 @@ const RoomDetails = () => {
   const [mongoUser, setMongoUser] = useState(null);
 
   useEffect(() => {
-    fetch(`https://roommates-finder-server-six.vercel.app/users/email/${email}`)
+    fetch(`http://localhost:5000/users/email/${email}`)
       .then((res) => res.json())
       .then((data) => setMongoUser(data));
   }, [email]);
 
   useEffect(() => {
-    fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/views/${_id}`, {
+    fetch(`http://localhost:5000/listingsRooms/views/${_id}`, {
       method: "POST",
     })
       .then((res) => res.json())
@@ -49,7 +49,7 @@ const RoomDetails = () => {
   }, [_id]);
 
   useEffect(() => {
-    fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/likes/${_id}`)
+    fetch(`http://localhost:5000/listingsRooms/likes/${_id}`)
       .then((res) => res.json())
       .then((data) => setLikes(data.likes));
   }, [_id]);
@@ -57,7 +57,7 @@ const RoomDetails = () => {
   const handleLike = () => {
     setLikes(likes + 1);
     setShowContact(true);
-    fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/likes/${_id}`, {
+    fetch(`http://localhost:5000/listingsRooms/likes/${_id}`, {
       method: "POST",
     });
   };

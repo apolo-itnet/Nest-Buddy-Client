@@ -32,7 +32,7 @@ const ListingForm = () => {
         try {
           const encodedEmail = encodeURIComponent(currentUser.email);
           const res = await fetch(
-            `https://roommates-finder-server-six.vercel.app/users/email/${encodedEmail}`
+            `http://localhost:5000/users/email/${encodedEmail}`
           );
           const data = await res.json();
           setMongoUser(data);
@@ -69,7 +69,7 @@ const ListingForm = () => {
     };
 
     // save add listing forms data in mongodb
-    fetch("https://roommates-finder-server-six.vercel.app/listingsRooms", {
+    fetch("http://localhost:5000/listingsRooms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

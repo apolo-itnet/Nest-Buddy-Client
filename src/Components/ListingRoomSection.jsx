@@ -6,7 +6,7 @@ const ListingRoomSection = () => {
   const listingsRooms = useLoaderData();
   
   const [filteredRooms, setFilteredRooms] = useState(false);
-  const  displayRooms = filteredRooms ? listingsRooms : listingsRooms.slice(0,6);
+  const  displayRooms = filteredRooms ? listingsRooms : listingsRooms.slice(0,8);
 
   const [rooms, setRooms] = useState([]);
 
@@ -16,7 +16,7 @@ const ListingRoomSection = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full mx-auto py-10 responsive-padding text-base-content bg-base-100">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mx-auto py-10 responsive-padding text-base-content bg-base-100">
         {rooms.map((room) => (
           <ListingCard
             key={room._id}

@@ -1,104 +1,75 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import slides from "./SliderData";
 import "swiper/css";
 import "swiper/css/pagination";
 import "aos/dist/aos.css";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Aos from "aos";
-import slides from "./SliderData";
-
-// const slides = [
-//   {
-//     id: 1,
-//     img: "https://i.postimg.cc/5NmfZV65/slider-1.jpg",
-//     title: "",
-//     heading: "",
-//     description: "",
-//   },
-//   {
-//     id: 2,
-//     img: "https://i.postimg.cc/FHWNHVb7/slider-2.jpg",
-//     title: "",
-//     heading: "",
-//     description: "",
-//   },
-//   {
-//     id: 3,
-//     img: "https://i.postimg.cc/XY7nWzCR/slider-3.jpg",
-//     title: "",
-//     heading: "",
-//     description: "",
-//   },
-
-// ];
 
 const Slider = () => {
+
+
   useEffect(() => {
     Aos.init({ duration: 1000, once: false });
   }, []);
 
   return (
-    <div className="relative h-[calc(100vh-90px)] w-full mx-auto top-2 flex justify-center items-center rounded-2xl overflow-hidden py-4 responsive-padding">
+    <div className="relative w-full h-[calc(100vh-140px)] mx-auto flex justify-center items-center overflow-hidden">
       <Swiper
-        effect={"coverflow"}
-        grabCursor={false}
+        spaceBetween={0}
+        slidesPerView={1}
+        effect="fade"
+        speed={2000}
         centeredSlides={true}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
+        navigation={true}
         autoplay={{
-          delay: 5000,
+          delay: 2500,
           disableOnInteraction: false,
         }}
-        speed={2000}
-        loop={true}
         pagination={{
           clickable: true,
         }}
-        modules={[EffectCoverflow, Pagination, Autoplay]}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative  ">
+            <div className="relative flex justify-center items-center">
 
-              {/* Image Section */}
-              <div className="h-[calc(100vh-90px)] rounded-2xl overflow-hidden">
-                <img
-                  src={slide.img}
-                  alt={slide.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute w-full mx-auto rounded-2xl inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10" />
-              </div>
-
-              {/* Text Section */}
-              <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-white text-center px-4 font-cabin tracking-wide ">
+               {/* Text Section */}
+              <div className="absolute inset-0 z-20  w-full mx-auto flex flex-col justify-center items-center text-white text-center px-4 font-cabin tracking-wide">
                 <h2
                   className="text-lg md:text-2xl font-bold uppercase mb-4"
-                  data-aos="fade-down"
                 >
                   {slide.title}
                 </h2>
                 <h1
                   className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 font-poetsen"
-                  data-aos="fade-up"
                 >
                   {slide.heading}
                 </h1>
-                <p className="text-lg md:text-lg max-w-2xl" data-aos="fade-in">
+                <p className="text-lg md:text-lg max-w-2xl">
                   {slide.description}
                 </p>
               </div>
+
+              {/* Image Section */}
+              <div className="relative w-full overflow-hidden z-10">
+                <img
+                  src={slide.img}
+                  alt={slide.title}
+                  className="w-full h-full  object-cover"
+                />
+                <div className="absolute w-full mx-auto inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10" />
+              </div>
+
+             
               
             </div>
           </SwiperSlide>
         ))}
+       
       </Swiper>
     </div>
   );

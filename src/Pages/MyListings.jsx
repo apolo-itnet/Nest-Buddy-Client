@@ -20,7 +20,7 @@ const MyListings = () => {
   const [mongoUser, setMongoUser] = useState(null);
 
   useEffect(() => {
-    fetch(`https://roommates-finder-server-six.vercel.app/users/email/${email}`)
+    fetch(`http://localhost:5000/users/email/${email}`)
       .then((res) => res.json())
       .then((data) => setMongoUser(data));
   }, [email]);
@@ -63,7 +63,7 @@ const MyListings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://roommates-finder-server-six.vercel.app/listingsRooms/${_id}`, {
+        fetch(`http://localhost:5000/listingsRooms/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

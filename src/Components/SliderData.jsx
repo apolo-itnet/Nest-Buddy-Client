@@ -22,13 +22,6 @@ const slides = [
   },
   {
     id: 4,
-    img: "https://i.postimg.cc/C1ZCz0R9/slider-4.jpg",
-    title: "BUDGET FRIENDLY",
-    heading: "Affordable Housing Options",
-    description: "Whether you're a student or working professional, find a room that fits your budget perfectly.",
-  },
-  {
-    id: 5,
     img: "https://i.postimg.cc/BbHxBCcg/slider-5.jpg",
     title: "NATIONWIDE NETWORK",
     heading: "Find Roommates Anywhere",
