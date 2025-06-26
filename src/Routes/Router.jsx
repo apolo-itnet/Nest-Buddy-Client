@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         path: "/",
         loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: <Home />,
-        hydrateFallbackElement: <LoadingSpinner />,
+        // hydrateFallbackElement: <LoadingSpinner />,
       },
       {
         path: "/login",

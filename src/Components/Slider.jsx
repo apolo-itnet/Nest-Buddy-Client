@@ -4,25 +4,27 @@ import slides from "./SliderData";
 import "swiper/css";
 import "swiper/css/pagination";
 import "aos/dist/aos.css";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Aos from "aos";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { ArrowLeft, ArrowRight, ArrowUpLeft } from "lucide-react";
 
 const Slider = () => {
-
-
   useEffect(() => {
     Aos.init({ duration: 1000, once: false });
   }, []);
 
   return (
-    <div className="relative w-full h-[calc(100vh-140px)] mx-auto flex justify-center items-center overflow-hidden">
+    <div className="relative w-full h-[80vh] mx-auto flex justify-center items-center overflow-hidden group">
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
         effect="fade"
         speed={2000}
         centeredSlides={true}
-        navigation={true}
+        navigation={{
+          nextEl: ".slide-button-next",
+          prevEl: ".slide-button-prev",
+        }}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -36,17 +38,12 @@ const Slider = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="relative flex justify-center items-center">
-
-               {/* Text Section */}
+              {/* Text Section */}
               <div className="absolute inset-0 z-20  w-full mx-auto flex flex-col justify-center items-center text-white text-center px-4 font-cabin tracking-wide">
-                <h2
-                  className="text-lg md:text-2xl font-bold uppercase mb-4"
-                >
+                <h2 className="text-lg md:text-2xl font-bold uppercase mb-4">
                   {slide.title}
                 </h2>
-                <h1
-                  className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 font-poetsen"
-                >
+                <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold mb-4 font-poetsen">
                   {slide.heading}
                 </h1>
                 <p className="text-lg md:text-lg max-w-2xl">
@@ -55,21 +52,24 @@ const Slider = () => {
               </div>
 
               {/* Image Section */}
-              <div className="relative w-full overflow-hidden z-10">
+              <div className="relative w-full h-[80vh] overflow-hidden z-10">
                 <img
                   src={slide.img}
                   alt={slide.title}
-                  className="w-full h-full  object-cover"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute w-full mx-auto inset-0 bg-slate-900/60 backdrop-blur-[2px] z-10" />
               </div>
-
-             
-              
             </div>
           </SwiperSlide>
         ))}
-       
+        <div className="slide-button-prev rounded-md relative lg:absolute top-60  w-10 h-10 flex justify-center items-center bg-lime-400 text-white hover:bg-lime-500 group-hover:left-0 -left-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
+          <ArrowLeft />
+        </div>
+        <div className="slide-button-next rounded-md relative lg:absolute top-60  w-10 h-10 flex justify-center items-center bg-lime-400 text-white hover:bg-lime-500 group-hover:right-0 -right-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
+          <ArrowRight />
+        </div>
+        
       </Swiper>
     </div>
   );

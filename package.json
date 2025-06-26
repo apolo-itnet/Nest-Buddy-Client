@@ -15,6 +15,8 @@
     "daisyui": "^5.0.35",
     "firebase": "^11.9.1",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^0.523.0",
+    "motion": "^12.19.1",
     "react": "^19.1.0",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^19.1.0",
