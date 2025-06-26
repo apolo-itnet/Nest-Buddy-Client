@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
-import Swal from "sweetalert2";
 import { BiHomeSmile } from "react-icons/bi";
 import { FaUserPlus } from "react-icons/fa6";
 import { TbListSearch } from "react-icons/tb";
@@ -19,6 +18,7 @@ const Navbar = ({ theme, toggleTheme }) => {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   // Logout handler
   const handleLogout = async () => {
@@ -56,8 +56,8 @@ const Navbar = ({ theme, toggleTheme }) => {
   ];
 
   const privateLinks = [
-    { label: "My Listings", href: "/my-listings", icon: <CgUserList /> },
     { label: "Add Listing", href: "/add-listing", icon: <FaUserPlus /> },
+    { label: "My Listings", href: "/my-listings", icon: <CgUserList /> },
   ];
 
   return (
@@ -93,20 +93,31 @@ const Navbar = ({ theme, toggleTheme }) => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-xs h-72"
               >
-                <Link to="/">
+                <Link to="/" className="flex items-center gap-2">
                   <img
                     src={"https://i.postimg.cc/vZWHk1Nq/home-search.png"}
                     alt="Lost Trace Logo"
-                    className="w-10 flex justify-center items-center lg:hidden pb-4  "
+                    className="w-8 flex justify-center items-center lg:hidden pb-4  "
                   />
+                  <span className="block md:hidden text-2xl font-bold font-poetsen hover:text-lime-400 transition-colors duration-300 ease-in-out">
+                    Nest Buddy
+                  </span>
                 </Link>
-                {navLinks.map((link, index) => (
-                  <li key={index}>
-                    <Link to={link.path} className="flex items-center gap-2">
-                      {link.icon} {link.name}
-                    </Link>
-                  </li>
-                ))}
+                <ul className="text-sm font-medium flex flex-col items-start gap-3">
+                  {navLinks.map((link, index) => (
+                    <li key={index}>
+                      <NavLink
+                        to={link.href}
+                        className={({ isActive }) =>
+                          `flex items-center gap-2 px-2 py-2 rounded-md transition-all ease-in-out duration-300 
+                      ${isActive ? "bg-lime-400" : "hover:bg-lime-500"} `
+                        }
+                      >
+                        {link.icon} {link.label}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
               </ul>
             </div>
             {/* Logo */}
@@ -116,7 +127,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                 alt="Lost Trace Logo"
                 className="w-10 lg:flex hidden "
               />{" "}
-              <span className="text-2xl font-bold font-poetsen hover:text-lime-400 transition-colors duration-300 ease-in-out">
+              <span className="hidden md:block text-2xl font-bold font-poetsen hover:text-lime-400 transition-colors duration-300 ease-in-out">
                 Nest Buddy
               </span>
             </Link>
@@ -124,12 +135,18 @@ const Navbar = ({ theme, toggleTheme }) => {
 
           {/* Desktop Menu */}
           <div className="navbar-center hidden lg:flex justify-center items-center">
-            <ul className="menu menu-horizontal px-1">
+            <ul className="text-sm font-medium flex items-center gap-3">
               {navLinks.map((link, index) => (
-                <li key={index} className="flex items-center gap-2">
-                  <Link to={link.href}>
-                    {link.icon} <span className="">{link.label}</span>
-                  </Link>
+                <li key={index}>
+                  <NavLink
+                    to={link.href}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-2 py-2 rounded-md transition-all ease-in-out duration-300 
+                      ${isActive ? "bg-lime-400" : "hover:bg-lime-500"} `
+                    }
+                  >
+                    {link.icon} {link.label}
+                  </NavLink>
                 </li>
               ))}
             </ul>
@@ -161,17 +178,17 @@ const Navbar = ({ theme, toggleTheme }) => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 s"
+                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 h-auto space-y-1"
                 >
                   {privateLinks.map((link, index) => (
-                    <li key={index}>
-                      <Link
+                    <li key={index} className="space-y-3 text-md">
+                      <NavLink
                         to={link.href}
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-2 hover:text-lime-500 hover:translate-x-2 transition-all ease-in-out duration-300"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         {link.icon} <span className="">{link.label}</span>
-                      </Link>
+                      </NavLink>
                     </li>
                   ))}
                   <li>

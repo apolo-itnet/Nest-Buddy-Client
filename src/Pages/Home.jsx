@@ -10,7 +10,7 @@ const Home = () => {
       <div>
         <Slider></Slider>
       </div>
-      <div>
+      <div id="latest-post">
         <ListingRoomSection />
       </div>
       <div id="testimonial">

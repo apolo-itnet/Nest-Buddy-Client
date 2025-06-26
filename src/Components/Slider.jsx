@@ -7,8 +7,15 @@ import "aos/dist/aos.css";
 import Aos from "aos";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight, ArrowUpLeft } from "lucide-react";
+import { FaArrowDown } from "react-icons/fa6";
+import PrimaryBtn from "../Shared/Button/PrimaryBtn";
 
 const Slider = () => {
+  const scrollToUpcoming = () => {
+    const section = document.getElementById("latest-post");
+    section.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     Aos.init({ duration: 1000, once: false });
   }, []);
@@ -49,6 +56,18 @@ const Slider = () => {
                 <p className="text-lg md:text-lg max-w-2xl">
                   {slide.description}
                 </p>
+
+                <PrimaryBtn
+                  onClick={scrollToUpcoming}
+                  label="Scroll Down"
+                  img={
+                    <FaArrowDown
+                      size={18}
+                      className="animate-bounce"
+                    />
+                  }
+                  className="mt-4 py-6"
+                />
               </div>
 
               {/* Image Section */}
@@ -63,13 +82,12 @@ const Slider = () => {
             </div>
           </SwiperSlide>
         ))}
-        <div className="slide-button-prev rounded-md relative lg:absolute top-60  w-10 h-10 flex justify-center items-center bg-lime-400 text-white hover:bg-lime-500 group-hover:left-0 -left-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
+        <div className="slide-button-prev rounded-full relative lg:absolute top-60  w-10 h-10 flex justify-center items-center border border-lime-400 text-white hover:bg-lime-500 group-hover:left-0 -left-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
           <ArrowLeft />
         </div>
-        <div className="slide-button-next rounded-md relative lg:absolute top-60  w-10 h-10 flex justify-center items-center bg-lime-400 text-white hover:bg-lime-500 group-hover:right-0 -right-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
+        <div className="slide-button-next rounded-full relative lg:absolute top-60  w-10 h-10 flex justify-center items-center border border-lime-400 text-white hover:bg-lime-500 group-hover:right-0 -right-10 duration-300 ease-in-out transition-all z-50 cursor-pointer">
           <ArrowRight />
         </div>
-        
       </Swiper>
     </div>
   );

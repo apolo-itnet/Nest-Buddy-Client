@@ -24,27 +24,25 @@ const ListingRoomSection = () => {
   }, []);
 
   return (
-    <div className="w-full mx-auto responsive-padding text-base-content bg-base-100  my-20 ">
-      <div
+    <div className="w-full mx-auto responsive-padding text-base-content bg-base-100 my-20">
+      <motion.div
         variants={slideUp(1)}
         initial="initial"
         animate="animate"
-        viewport={{ once: false }}
         exit={"exit"}
-        className="py-4 bg-lime-400"
+        className="py-2 bg-lime-400"
       >
         <motion.h1
           variants={slideRight(1)}
           initial="initial"
           animate="animate"
-          viewport={{ once: false }}
           exit={"exit"}
           className="text-4xl text-center font-normal font-poetsen tracking-tighter py-4 "
         >
-          Latest Post Rooms
+          Latest Room Posts
         </motion.h1>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mx-auto py-10">
+      </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mx-auto py-6">
         {rooms.map((room, index) => (
           <ListingCard
             key={room._id}
@@ -56,7 +54,7 @@ const ListingRoomSection = () => {
           />
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center font-manrope">
         <Link
           to="/browse-listing"
           className="inline-flex justify-center items-center gap-2 text-sm font-semibold px-4 py-3 bg-lime-400 rounded-md  hover:bg-lime-500 transition-colors duration-300"
