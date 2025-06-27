@@ -16,6 +16,8 @@ import Dashboard from "../Pages/Dashboard";
 import Footer from "../Components/Footer";
 import StatContent from "../Components/Dashboard/StatContent";
 import AllPosts from "../Pages/AllPosts";
+import AboutUs from "../Pages/AboutUs";
+import ContactUs from "../Pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs/>
+      },
+      {
+        path: "/contact",
+        element: <ContactUs/>
       },
       {
         path: "/listing-card-section",
@@ -97,7 +107,7 @@ const router = createBrowserRouter([
       {
         path: "browse-listing",
         loader: () => fetch("http://localhost:5000/listingsRooms"),
-        element: <BrowseListings />,
+        element: <AllPosts />,
         hydrateFallbackElement: <LoadingSpinner/>
       },
       {

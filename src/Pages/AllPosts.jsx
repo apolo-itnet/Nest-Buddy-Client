@@ -44,7 +44,7 @@ const AllPosts = () => {
         initial="initial"
         animate="animate"
         exit={"exit"}
-        className="sticky top-20 z-50 px-4 bg-lime-400 rounded-lg flex items-center justify-between my-2"
+        className="sticky top-20 z-10 px-4 bg-lime-400 rounded-lg flex items-center justify-between my-2"
       >
         <div className="flex gap-4 items-center ">
           <select

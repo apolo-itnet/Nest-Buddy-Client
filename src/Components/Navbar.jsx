@@ -164,7 +164,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           </div>
 
           {/* Dropdown avatar menu*/}
-          <div className="navbar-end gap-2">
+          <div className="navbar-end gap-2 z-50">
             {user ? (
               <div className="dropdown dropdown-end">
                 <label
