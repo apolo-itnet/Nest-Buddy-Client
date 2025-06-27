@@ -29,7 +29,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="py-20 dark:bg-base-100 text-base-content">
+    <section className="max-w-6xl mx-auto py-20 rounded-lg">
       <div className="w-full mx-auto responsive-padding text-center font-league">
         <h2 className="text-4xl font-bold mb-4">How It Works</h2>
         <p className=" mb-10">Find your perfect roommate in just a few steps</p>
@@ -40,11 +40,11 @@ const HowItWorks = () => {
               key={index}
               data-aos="fade-up"
               data-aos-delay={index * 150}
-              className=" rounded-2xl shadow-md p-6 hover:shadow-xl transition-all duration-300 border-base-200 border"
+              className=" flex flex-col items-center rounded-2xl shadow-sm p-6 hover:shadow-md transition-all duration-300 border-base-200 border bg-stone-50 "
             >
               {step.icon}
-              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="">{step.desc}</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">{step.title}</h3>
+              <p className="text-gray-900">{step.desc}</p>
             </div>
           ))}
         </div>

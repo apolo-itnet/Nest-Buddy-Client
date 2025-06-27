@@ -33,7 +33,7 @@ const Slider = () => {
           prevEl: ".slide-button-prev",
         }}
         autoplay={{
-          delay: 2500,
+          delay: 6000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -66,7 +66,7 @@ const Slider = () => {
                       className="animate-bounce"
                     />
                   }
-                  className="mt-4 py-6"
+                  className="absolute inset-0 top-20 mt-4 py-6"
                 />
               </div>
 

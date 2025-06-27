@@ -3,6 +3,7 @@ import Slider from "../Components/Slider";
 import Testimonial from "../Components/Testimonial";
 import ListingRoomSection from "../Components/ListingRoomSection";
 import HowItWorks from "../Components/HowItWorks";
+import NewsLetter from "../Components/NewsLetter";
 
 const Home = () => {
   return (
@@ -17,7 +18,11 @@ const Home = () => {
         <Testimonial />
       </div>
       <div>
-        <HowItWorks/>
+        <HowItWorks />
+      </div>
+      <div id="newsletter">
+        {" "}
+        <NewsLetter />{" "}
       </div>
     </div>
   );
