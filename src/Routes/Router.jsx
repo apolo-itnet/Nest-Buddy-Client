@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import MainLayout from "../Main/MainLayout";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
@@ -12,19 +12,23 @@ import MyListings from "../Pages/MyListings";
 import UpdateListing from "../Pages/UpdateListing";
 import RoomDetails from "../Pages/RoomDetails";
 import ListingRoomSection from "../Components/ListingRoomSection";
+import Dashboard from "../Pages/Dashboard";
+import Footer from "../Components/Footer";
+import StatContent from "../Components/Dashboard/StatContent";
+import AllPosts from "../Pages/AllPosts";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <NotFound></NotFound>,
-    hydrateFallbackElement: <LoadingSpinner />,
+    errorElement: <NotFound />,
+    hydrateFallbackElement: <LoadingSpinner/>,
     children: [
       {
         path: "/",
         loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: <Home />,
-        // hydrateFallbackElement: <LoadingSpinner />,
+        hydrateFallbackElement: <LoadingSpinner/>
       },
       {
         path: "/login",
@@ -38,35 +42,19 @@ const router = createBrowserRouter([
         path: "/listing-card-section",
         loader: () => fetch("http://localhost:5000/listingsRooms"),
         element: (
-          <privateRoutes>
-            <ListingRoomSection />
-          </privateRoutes>
-        ),
-      },
-      {
-        path: "/add-listing",
-        element: (
           <PrivateRoutes>
-            <AddListing />
+            <ListingRoomSection />
           </PrivateRoutes>
         ),
-        hydrateFallbackElement: <LoadingSpinner />,
+        hydrateFallbackElement: <LoadingSpinner/>
       },
       {
         path: "/browse-listing",
         loader: () => fetch("http://localhost:5000/listingsRooms"),
-        element: <BrowseListings />,
-        hydrateFallbackElement: <LoadingSpinner />,
+        element: <AllPosts />,
+        hydrateFallbackElement: <LoadingSpinner/>
       },
-      {
-        path: "/my-listings",
-        loader: () => fetch("http://localhost:5000/listingsRooms"),
-        element: (
-          <PrivateRoutes>
-            <MyListings></MyListings>
-          </PrivateRoutes>
-        ),
-      },
+
       {
         path: "/update-listing/:id",
         loader: ({ params }) =>
@@ -76,6 +64,7 @@ const router = createBrowserRouter([
             <UpdateListing />
           </PrivateRoutes>
         ),
+        hydrateFallbackElement: <LoadingSpinner/>
       },
       {
         path: "/details/:id",
@@ -86,7 +75,48 @@ const router = createBrowserRouter([
             <RoomDetails />
           </PrivateRoutes>
         ),
-        hydrateFallbackElement: <LoadingSpinner />,
+        hydrateFallbackElement: <LoadingSpinner/>
+      },
+     
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard />
+      </PrivateRoutes>
+    ),
+    hydrateFallbackElement: <LoadingSpinner/>,
+
+    children: [
+      {
+        index: true,
+        element: <StatContent />,
+      },
+      {
+        path: "browse-listing",
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        element: <BrowseListings />,
+        hydrateFallbackElement: <LoadingSpinner/>
+      },
+      {
+        path: "add-listing",
+        element: (
+          <PrivateRoutes>
+            <AddListing />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "my-listings",
+        loader: () => fetch("http://localhost:5000/listingsRooms"),
+        element: (
+          <PrivateRoutes>
+            <MyListings />
+          </PrivateRoutes>
+        ),
+        hydrateFallbackElement: <LoadingSpinner/>,
       },
     ],
   },

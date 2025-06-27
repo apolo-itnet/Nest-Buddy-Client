@@ -11,6 +11,9 @@ import { slideDown } from "../Utility/Animation";
 import PrimaryBtn from "../Shared/Button/PrimaryBtn";
 import SecondaryBtn from "../Shared/Button/SecondaryBtn";
 import { toastError, toastSuccess } from "../Utility/NotifyToast";
+import { LayoutDashboard } from "lucide-react";
+import { LuLayoutDashboard } from "react-icons/lu";
+import axios from "axios";
 
 const Navbar = ({ theme, toggleTheme }) => {
   const { user, logout } = useContext(AuthContext);
@@ -19,6 +22,15 @@ const Navbar = ({ theme, toggleTheme }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (user?.email) {
+      axios
+        .get(`http://localhost:5000/users/email/${user.email.toLowerCase()}`)
+        .then((res) => setMongoUser(res.data))
+        .catch((err) => console.error("User fetch error:", err));
+    }
+  }, []);
 
   // Logout handler
   const handleLogout = async () => {
@@ -56,13 +68,12 @@ const Navbar = ({ theme, toggleTheme }) => {
   ];
 
   const privateLinks = [
-    { label: "Add Listing", href: "/add-listing", icon: <FaUserPlus /> },
-    { label: "My Listings", href: "/my-listings", icon: <CgUserList /> },
+    { label: "Dashboard", href: "/dashboard", icon: <LuLayoutDashboard /> },
   ];
 
   return (
-    <header>
-      <div className="flex justify-between items-center py-2 bg-base-100 border-b border-gray-100  responsive-padding font-manrope">
+    <header id="navbar">
+      <div className="w-full flex justify-between items-center py-2 bg-base-100 border-b border-gray-100  responsive-padding font-manrope">
         <motion.div
           variants={slideDown(0.2)}
           initial="initial"
@@ -178,13 +189,13 @@ const Navbar = ({ theme, toggleTheme }) => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 h-auto space-y-1"
+                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 h-30 space-y-1 text-lg font-medium "
                 >
                   {privateLinks.map((link, index) => (
-                    <li key={index} className="space-y-3 text-md">
+                    <li key={index}>
                       <NavLink
                         to={link.href}
-                        className="flex items-center gap-2 hover:text-lime-500 hover:translate-x-2 transition-all ease-in-out duration-300"
+                        className="flex items-center gap-2 py-3 text-sm font-medium  hover:text-lime-500 hover:translate-x-2 transition-all ease-in-out duration-300"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         {link.icon} <span className="">{link.label}</span>
@@ -194,7 +205,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                   <li>
                     <button
                       onClick={handleLogout}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 text-sm py-3"
                     >
                       <FaSignOutAlt /> Signout
                     </button>

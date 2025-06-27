@@ -26,32 +26,32 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="font-league border border-base-300">
-      <div className="w-full mx-auto responsive-padding flex justify-between items-start gap-8 pt-12 pb-6">
+    <footer id="footer" className="font-league border-t border-base-300">
+      <div className="w-full mx-auto responsive-padding flex flex-col md:flex-row justify-between items-start gap-8 pt-12 pb-6">
         {/* Logo + Description */}
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col justify-center items-center md:justify-start md:items-start ">
           {/* Logo */}
           <NavLink
             to="/"
-            className="flex items-center rounded-xl text-xl font-semibold"
+            className="inline-flex items-center rounded-xl text-xl font-semibold"
           >
             <img
               className="w-14 h-14"
-              src="https://i.postimg.cc/GpdhCL0c/location.gif"
+              src="https://i.postimg.cc/vZWHk1Nq/home-search.png"
               alt="Nest Buddy logo"
             />
             <p className="font-poetsen text-xl font-bold hidden md:block hover:text-lime-500 transition-colors duration-300">
               Nest Buddy
             </p>
           </NavLink>
-          <p className=" text-sm">
+          <p className="w-2/3 py-2 text-sm">
             Connecting people to the perfect roommates with ease and trust.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 flex-1 ">
+        <div className="flex justify-center items-start flex-1 gap-8 md:gap-0 mx-auto ">
           {/* Quick Links */}
-          <div className="">
+          <div className="flex-1">
             <h3 className="font-semibold mb-3">Quick Links</h3>
             <ul className="space-y-3 text-md">
               {navLinks.map((link, index) => (
@@ -68,12 +68,12 @@ const Footer = () => {
           </div>
 
           {/* Resources */}
-          <div>
+          <div className="flex-1">
             <h3 className="font-semibold  mb-3">Resources</h3>
-            <ul className="space-y-2 text-md">
+            <ul className="space-y-3 text-md">
               <li>
                 <NavLink to="/about" className="hover:text-lime-500">
-                  About Us
+                  Dashboard
                 </NavLink>
               </li>
               <li>
@@ -97,7 +97,7 @@ const Footer = () => {
         </div>
 
         {/* Social Media */}
-        <div className="flex flex-col justify-between items-center lg:items-end ">
+        <div className="flex flex-col mx-auto justify-between items-center lg:items-end ">
           <h3 className="font-semibold mb-3">Follow Us</h3>
           <div className="flex gap-4">
             <a href="#" className="hover:text-lime-500">

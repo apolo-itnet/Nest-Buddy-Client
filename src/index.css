@@ -11,6 +11,13 @@
 .pt-color {
   color: #1c1917;
 }
+.text-lime {
+  color: #a3e635;
+}
+
+.bg-p-color {
+  background-color: #f5f5f4;
+} 
 
 .font-poetsen {
   font-family: 'Poetsen One', serif;

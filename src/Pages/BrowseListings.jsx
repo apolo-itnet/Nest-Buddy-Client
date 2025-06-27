@@ -24,7 +24,6 @@ const BrowseListings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // লিস্টিং ফেচ
         const listingResponse = await fetch(
           "http://localhost:5000/listingsRooms"
         );
@@ -35,7 +34,6 @@ const BrowseListings = () => {
         );
         setListingData(userListings);
 
-        // সব ইউজার ফেচ
         const usersResponse = await fetch("http://localhost:5000/users");
         if (!usersResponse.ok) throw new Error("Failed to fetch users");
         const users = await usersResponse.json();

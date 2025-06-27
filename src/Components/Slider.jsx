@@ -23,6 +23,10 @@ const Slider = () => {
   return (
     <div className="relative w-full h-[80vh] mx-auto flex justify-center items-center overflow-hidden group">
       <Swiper
+        style={{
+          "--swiper-pagination-color": "#84cc16",
+          "--swiper-pagination-bullet-inactive-opacity": "0.6",
+        }}
         spaceBetween={0}
         slidesPerView={1}
         effect="fade"
@@ -60,12 +64,7 @@ const Slider = () => {
                 <PrimaryBtn
                   onClick={scrollToUpcoming}
                   label="Scroll Down"
-                  img={
-                    <FaArrowDown
-                      size={18}
-                      className="animate-bounce"
-                    />
-                  }
+                  img={<FaArrowDown size={18} className="animate-bounce" />}
                   className="absolute inset-0 top-20 mt-4 py-6"
                 />
               </div>

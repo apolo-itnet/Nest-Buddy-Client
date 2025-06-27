@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
-import { Outlet, useNavigation } from "react-router";
+import { Outlet, useLocation, useNavigation } from "react-router";
 import Footer from "../Components/Footer";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import "aos/dist/aos.css";
 
 const MainLayout = () => {
   const { state } = useNavigation();
+  const location = useLocation();
+
+  //Hide navbar & footer on dashboard page
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      document.getElementById("navbar").style.display = "none";
+      document.getElementById("footer").style.display = "none";
+    } else {
+      document.getElementById("navbar").style.display = "flex";
+      document.getElementById("footer").style.display = "flex";
+    }
+  }, [location]);
 
   // 🔴 Theme state and effect
   const [theme, setTheme] = useState("light");

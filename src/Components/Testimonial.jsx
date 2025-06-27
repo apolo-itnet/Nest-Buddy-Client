@@ -5,6 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FaStar } from "react-icons/fa";
+import { ArrowUp } from "lucide-react";
+import CountUp from "react-countup";
 
 // testimonials data assume here
 const testimonials = [
@@ -126,28 +128,26 @@ const Testimonial = () => {
   const [selectedId, setSelectedId] = useState(testimonials[0].id);
 
   return (
-    <div>
-      <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 text-base-content bg-base-100 ">
-        <div className="flex flex-col lg:flex-row gap-4">
-
+    <div className="relative bg-p-color font-league">
+      <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14 ">
+        <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10">
           <div>
             <Swiper
               style={{
-                "--swiper-pagination-color": "#84cc16",
-                "--swiper-pagination-bullet-inactive-opacity": "0.03",
-
+                "--swiper-pagination-color": "#a3e635",
+                "--swiper-pagination-bullet-inactive-opacity": "0.1",
               }}
               modules={[Autoplay, Pagination]}
-              pagination = {{ 
+              pagination={{
                 clickable: true,
-               }}
+              }}
               loop={true}
               autoplay={{ delay: 4000, disableOnInteraction: false }}
               speed={3000}
               onSlideChange={(swiper) =>
                 setSelectedId(testimonials[swiper.realIndex].id)
               }
-              watchSlidesProgress = {true}
+              watchSlidesProgress={true}
               className="relative w-xs md:w-xl lg:max-w-2xl mx-auto mySwiper"
             >
               {testimonials.map((t) => (
@@ -155,11 +155,11 @@ const Testimonial = () => {
                   {t.id === selectedId && (
                     <div className="lg:w-xl mx-auto">
                       <div className="flex flex-col justify-center items-center">
-                        <p className="md:text-lg text-base text-center italic mb-6 ">
+                        <p className="md:text-lg pt-color text-center italic mb-3 ">
                           "{t.quote}"
                         </p>
                       </div>
-                      <div className="flex flex-col justify-center items-center mt-10">
+                      <div className="flex flex-col justify-center items-center ">
                         <div className="flex justify-center items-center gap-1">
                           {[...Array(5)].map((_, i) => (
                             <FaStar
@@ -175,7 +175,9 @@ const Testimonial = () => {
                             {t.rating.toFixed(1)}
                           </span>
                         </div>
-                        <h3 className="font-semibold text-lg">{t.name}</h3>
+                        <h3 className="font-semibold text-lg pt-color">
+                          {t.name}
+                        </h3>
                         <p className="text-gray-400 text-sm">{t.designation}</p>
                         <img
                           className="mask mask-squircle lg:w-18 md:w-24 w-20 my-10"
@@ -190,37 +192,24 @@ const Testimonial = () => {
             </Swiper>
           </div>
 
-          <div className="w-full border-l border-gray-200 p-4">
+          <div className="w-full mx-auto border-l border-gray-200 p-4 pt-color">
             <div className="space-y-6 sm:space-y-8">
               {/* List */}
-              <ul className="grid grid-cols-2 divide-y divide-y-2 divide-x divide-x-2 divide-gray-200 overflow-hidden">
+              <ul className="grid grid-cols-2 place-items-center divide-y divide-y-2 divide-x divide-x-2 divide-gray-200 overflow-hidden">
+
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
-                    1.5k+
-                  </div>
+                  <h1 className="flex text-lime items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
+                   <CountUp end={1500} duration={4} />K+
+                  </h1>
                   <p className="text-sm sm:text-base">
                     registered users who found or became roommates
                   </p>
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold mb-2">
-                    <svg
-                      className="shrink-0 size-5 text-blue-600"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="m5 12 7-7 7 7" />
-                      <path d="M12 19V5" />
-                    </svg>
-                    37%
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold mb-2 ">
+                    <ArrowUp />
+                    <span className="text-lime"><CountUp end={37} duration={10} />%</span>
                   </div>
                   <p className="text-sm sm:text-base ">
                     increase in roommate matches through our platform
@@ -228,35 +217,22 @@ const Testimonial = () => {
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
-                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
-                    <svg
-                      className="shrink-0 size-5 text-blue-600"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="m5 12 7-7 7 7" />
-                      <path d="M12 19V5" />
-                    </svg>
-                    100%
+                  <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold mb-2">
+                    <ArrowUp /><span className="text-lime"><CountUp end={100} duration={5} />%</span>
                   </div>
                   <p className="text-sm sm:text-base ">
-                    Ensures a safer and more trustworthy roommate-finding experience.
+                    Ensures a safer and more trustworthy roommate-finding
+                    experience.
                   </p>
                 </li>
 
                 <li className="flex flex-col -m-0.5 p-4 sm:p-8">
                   <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold  mb-2">
-                    7x
+                   <span className="text-lime"><CountUp end={7} duration={7} />%</span>
                   </div>
                   <p className="text-sm sm:text-base ">
-                    Helps users boost their listings for faster visibility and better reach.
+                    Helps users boost their listings for faster visibility and
+                    better reach.
                   </p>
                 </li>
               </ul>
